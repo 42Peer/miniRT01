@@ -6,7 +6,7 @@
 /*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 16:55:22 by mher              #+#    #+#             */
-/*   Updated: 2022/11/04 16:28:15 by mher             ###   ########.fr       */
+/*   Updated: 2022/11/07 16:44:45 by mher             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_camera t_camera;
 typedef struct s_canvas t_canvas;
 typedef struct s_sphere t_sphere;
 typedef struct s_mlx_data t_mlx_data;
+typedef struct s_hit_record t_hit_record;
 
 typedef int t_bool;
 #define FALSE 0
@@ -67,6 +68,15 @@ struct s_mlx_data {
   int bits_per_pixel;
   int line_length;
   int endian;
+};
+
+struct s_hit_record {
+  double t;      // t는 광선의 원점과 교점 사이의 거리.
+  t_point3 p;    // p는 교점의 좌표
+  t_vec3 normal; // normal은 교점에서의 법선.
+  double tmin;
+  double tmax;
+  t_bool front_face;
 };
 
 #endif

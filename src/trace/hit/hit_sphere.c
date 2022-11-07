@@ -6,34 +6,51 @@
 /*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 14:20:23 by mher              #+#    #+#             */
-/*   Updated: 2022/11/07 15:16:21 by mher             ###   ########.fr       */
+/*   Updated: 2022/11/07 16:24:33 by mher             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/structures.h"
 #include "../../../include/utils.h"
+#include "../../../include/trace.h"
 
-double     hit_sphere(t_sphere *sp, t_ray *ray)
+t_bool      hit_sphere(t_sphere *sp, t_ray *ray, t_hit_record *rec)
 {
     t_vec3  oc; //방향벡터로 나타낸 구의 중심, oc = origin - center
     //a, b, c는 각각 t에 관한 2차 방정식의 계수
     double  a; // D dot D
-    double  b; // 2 * (D dot (O - C))
+			   //
+    //double  b; // 2 * (D dot (O - C))
+	double  half_b;
+
     double  c; // (O - C) dot (O - C) - R^2
     double  discriminant; //판별식
+	double  sqrtd;
+	double  root;
 
     oc = vminus(ray->orig, sp->center);
-    a = vdot(ray->dir, ray->dir);
-    b = 2.0 * vdot(oc, ray->dir);
-    c = vdot(oc, oc) - sp->radius_pow_2;
-    // discriminant 는 판별식
-    discriminant = b * b - 4 * a * c;
 
-    // 판별식이 0보다 크다면 광선이 구를 hit한 것!
-    // return (discriminant > 0);
+	a = vlength2(ray->dir);
+	half_b = vdot(oc, ray->dir);
+	c = vlength2(oc) - sp->radius_pow_2;
 
-	if (discriminant < 0) 
-		return (-1.0);
-	else
-        return ((-b - sqrt(discriminant)) / (2.0 * a)); // 두 근 중 작은 근
+	discriminant = half_b * half_b - a * c;
+
+	if (discriminant < 0)
+		return (FALSE);
+	sqrtd = sqrt(discriminant);
+
+	//두 실근(t) 중 tmin:0과 tmax:INFF 사이에 있는 근이 있는지 체크, 작은 근부터 체크.
+	root = (-half_b - sqrtd) / a;
+	if (root < rec->tmin || rec->tmax < root)
+	{
+		root = (-half_b + sqrtd) / a;
+		if (root < rec->tmin || rec->tmax < root)
+			return (FALSE);
+	}
+	rec->t = root;
+	rec->p = ray_at(ray, root);
+	rec->normal = vdivide(vminus(rec->p, sp->center), sp->radius); // 정규화된 법선 벡터.
+	set_face_normal(ray, rec); // rec의 법선벡터와 광선의 방향벡터를 비교해서 앞면인지 뒷면인지 t_bool 값으로 저장.
+	return (TRUE);
 }

@@ -6,7 +6,7 @@
 #    By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/04 14:30:41 by mher             ###   ########.fr        #
+#    Updated: 2022/11/07 16:06:52 by mher             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC = \
 	$(SRC_DIR)/scene/object_create.c\
 	$(SRC_DIR)/trace/ray.c \
 	$(SRC_DIR)/trace/hit/hit_sphere.c\
+	$(SRC_DIR)/trace/hit/normal.c\
 
 OBJ = $(SRC:.c=.o)
 
