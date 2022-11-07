@@ -6,12 +6,12 @@
 /*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 13:17:51 by mher              #+#    #+#             */
-/*   Updated: 2022/11/04 17:15:39 by mher             ###   ########.fr       */
+/*   Updated: 2022/11/07 12:42:30 by mher             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/libmlx/mlx.h"
 #include <stdio.h>
+#include "../lib/libmlx/mlx.h"
 #include "../include/structures.h"
 #include "../include/utils.h"
 #include "../include/print.h"
