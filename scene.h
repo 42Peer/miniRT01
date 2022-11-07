@@ -2,7 +2,18 @@
 #define SCENE_H
 
 #include "structures.h"
+// #include "trace.h"
 #include "utils.h"
+
+t_ray ray(t_point3 orig, t_vec3 dir);
+// ray origin point 부터 방향벡터 ray dir * t 만큼 떨어진 점.
+t_point3 ray_at(t_ray *ray, double t);
+// primary_ray 생성자
+t_ray ray_primary(t_camera *cam, double u, double v);
+//광선이 최종적으로 얻게된 픽셀의 색상 값을 리턴.
+t_color3 ray_color(t_ray *ray, t_object *world);
+void set_face_normal(t_ray *r, t_hit_record *rec);
+t_bool hit_sphere(t_object *world, t_ray *ray, t_hit_record *rec);
 
 t_canvas canvas(int width, int height) {
   t_canvas canvas;
@@ -34,32 +45,109 @@ t_camera camera(t_canvas *canvas, t_point3 orig) {
   return (cam);
 }
 
-t_sphere sphere(t_point3 center, double radius) {
-  t_sphere sp;
+t_object *object(t_object_type type, void *element) {
+  t_object *_new;
 
-  sp.center = center;
-  sp.radius = radius;
-  sp.radius_sqr = radius * radius;
+  if (!(_new = (t_object *)malloc(sizeof(t_object))))
+    return (NULL);
+  _new->type = type;
+  _new->element = element;
+  _new->next = NULL;
+  return (_new);
+}
+
+t_sphere *sphere(t_point3 center, double radius) {
+  t_sphere *sp;
+
+  if (!(sp = (t_sphere *)malloc(sizeof(t_sphere))))
+    return (NULL);
+  sp->center = center;
+  sp->radius = radius;
+  sp->radius_sqr = radius * radius;
   return (sp);
 }
 
-t_bool hit_sphere(t_sphere *sp, t_ray *ray) {
+// t_sphere sphere(t_point3 center, double radius) {
+//   t_sphere sp;
+
+//   sp.center = center;
+//   sp.radius = radius;
+//   sp.radius_sqr = radius * radius;
+//   return (sp);
+// }
+
+t_bool hit_obj(t_object *world, t_ray *ray, t_hit_record *rec) {
+  t_bool hit_result;
+
+  hit_result = FALSE;
+  if (world->type == SP)
+    hit_result =
+        hit_sphere(world, ray, rec); // hit_sphere의 첫번째 인자도 t_sphere
+                                     // *에서 t_object *로 수정해주자.
+  return (hit_result);
+}
+
+t_bool hit(t_object *world, t_ray *ray, t_hit_record *rec) {
+  t_bool hit_anything;
+  t_hit_record temp_rec;
+
+  temp_rec = *rec; // temp_rec의 tmin, tmax 값 초기화를 위해.
+  hit_anything = FALSE;
+  while (world) {
+    if (hit_obj(world, ray, &temp_rec)) {
+      hit_anything = TRUE;
+      temp_rec.tmax = temp_rec.t;
+      *rec = temp_rec;
+    }
+    world = world->next;
+  }
+  return (hit_anything);
+}
+
+t_bool hit_sphere(t_object *world, t_ray *ray, t_hit_record *rec) {
+  t_sphere *sp = (t_sphere *)world->element;
   t_vec3 oc; //방향벡터로 나타낸 구의 중심.
   // a, b, c는 각각 t에 관한 2차 방정식의 계수
   double a;
-  double b;
+  double half_b;
   double c;
   double discriminant; //판별식
+  double sqrtd;
+  double root;
 
   oc = vminus(ray->orig, sp->center);
-  a = vdot(ray->dir, ray->dir);
-  b = 2.0 * vdot(oc, ray->dir);
-  c = vdot(oc, oc) - sp->radius_sqr;
-  // discriminant 는 판별식
-  discriminant = b * b - 4 * a * c;
+  // a = vdot(ray->dir, ray->dir);
+  // b = 2.0 * vdot(oc, ray->dir);
+  // c = vdot(oc, oc) - sp->radius_sqr;
+  // // discriminant 는 판별식
+  // discriminant = b * b - 4 * a * c;
 
-  // 판별식이 0보다 크다면 광선이 구를 hit한 것!
-  return (discriminant > 0);
+  // if (discriminant < 0) // 판별식이 0보다 작을 때 : 실근 없을 때,
+  //   return (-1.0);
+  // else
+  //   return ((-b - sqrt(discriminant)) / (2.0 * a)); // 두 근 중 작은 근
+  a = vlength2(ray->dir);
+  half_b = vdot(oc, ray->dir);
+  c = vlength2(oc) - sp->radius_sqr;
+  discriminant = half_b * half_b - a * c;
+
+  if (discriminant < 0)
+    return (FALSE);
+  sqrtd = sqrt(discriminant);
+  root = (-half_b - sqrtd) / a;
+  root = (-half_b - sqrtd) / a;
+  if (root < rec->tmin || rec->tmax < root) {
+    root = (-half_b + sqrtd) / a;
+    if (root < rec->tmin || rec->tmax < root)
+      return (FALSE);
+  }
+  rec->t = root;
+  rec->p = ray_at(ray, root);
+  rec->normal =
+      vdivide(vminus(rec->p, sp->center), sp->radius); // 정규화된 법선 벡터.
+  set_face_normal(ray, rec); // rec의 법선벡터와 광선의 방향벡터를 비교해서
+                             // 앞면인지 뒷면인지 t_bool 값으로 저장.
+  return (TRUE);
 }
 
 #endif

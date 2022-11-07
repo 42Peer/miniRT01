@@ -146,4 +146,25 @@ t_vec3 vmin(t_vec3 vec1, t_vec3 vec2) {
   return (vec1);
 }
 
+void oadd(t_object **list, t_object *_new) {
+  t_object *cur;
+
+  if (*list == NULL) {
+    *list = _new;
+    return;
+  }
+  cur = *list;
+  while (cur->next)
+    cur = cur->next;
+  cur->next = _new;
+}
+
+t_object *olast(t_object *list) {
+  if (list == NULL)
+    return (NULL);
+  while (list->next)
+    list = list->next;
+  return (list);
+}
+
 #endif

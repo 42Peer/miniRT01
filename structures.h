@@ -12,12 +12,19 @@ typedef struct s_camera t_camera;
 typedef struct s_canvas t_canvas;
 
 // 3. 오브젝트 구조체
+typedef struct s_object t_object;
 typedef struct s_sphere t_sphere;
 
 // 4. 식별자
 typedef int t_bool;
 #define FALSE 0
 #define TRUE 1
+typedef enum e_object_type {
+  SP,
+} t_object_type;
+
+// 5. hit_record
+typedef struct s_hit_record t_hit_record;
 
 // 1. 벡터 구조체
 struct s_vec3 {
@@ -49,10 +56,26 @@ struct s_canvas {
 };
 
 // 3. 오브젝트 구조체
+struct s_object {
+  t_object_type type;
+  void *element;
+  t_object *next;
+};
+
 struct s_sphere {
   t_point3 center;
   double radius;
   double radius_sqr;
+};
+
+// 5. hit_record
+struct s_hit_record {
+  t_point3 p;
+  t_vec3 normal;
+  double tmin;
+  double tmax;
+  double t;
+  t_bool front_face;
 };
 
 #endif
