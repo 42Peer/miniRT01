@@ -27,6 +27,7 @@ typedef enum e_object_type {
 } t_object_type;
 
 #define EPSILON 1e-6
+#define LUMEN 1
 
 struct s_vec3 {
   double x;
