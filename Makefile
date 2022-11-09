@@ -3,25 +3,36 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/26 18:07:13 by junkpark          #+#    #+#              #
-#    Updated: 2022/11/09 11:50:09 by junkpark         ###   ########.fr        #
+#    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
+#    Updated: 2022/11/07 16:06:52 by mher             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= miniRT
 
-CC		= cc
+CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror
 MFLAGS	= -framework OpenGL -framework AppKit
 
-MLX_DIR	= ./minilibx_opengl_20191021
+MLX_DIR	= ./lib/libmlx
 MLX 	= mlx
 
-# INCLUDE = -I ./include
+INCLUDE = -I./include
 
-SRC = main.c scene.c
+SRC_DIR = ./src
+
+SRC = \
+	$(SRC_DIR)/main.c \
+	$(SRC_DIR)/utils/vec3_utils.c \
+	$(SRC_DIR)/print/print.c \
+	$(SRC_DIR)/scene/canvas.c \
+	$(SRC_DIR)/scene/scene.c \
+	$(SRC_DIR)/scene/object_create.c\
+	$(SRC_DIR)/trace/ray.c \
+	$(SRC_DIR)/trace/hit/hit_sphere.c\
+	$(SRC_DIR)/trace/hit/normal.c\
 
 OBJ = $(SRC:.c=.o)
 
@@ -30,17 +41,16 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(MAKE) -C $(MLX_DIR)
 	$(CC) $(CFLAGS) -o $@ $^ \
-		-L$(MLX_DIR) -l $(MLX) $(MFLAGS)
+		-L$(MLX_DIR) -l$(MLX) $(MFLAGS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^
-
+	
 clean:
 	$(MAKE) clean -C $(MLX_DIR)
 	rm -f $(OBJ)
 
 fclean: clean
-	$(MAKE) clean -C $(MLX_DIR);
 	rm -f $(NAME)
 
 re: fclean all
