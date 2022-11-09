@@ -1,31 +1,32 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   structures.h                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/03 16:55:22 by mher              #+#    #+#             */
-/*   Updated: 2022/11/07 16:44:45 by mher             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef STRUCTURES_H
 #define STRUCTURES_H
 
 typedef struct s_vec3 t_vec3;
 typedef struct s_vec3 t_point3;
 typedef struct s_vec3 t_color3;
+
+typedef struct s_scene t_scene;
 typedef struct s_ray t_ray;
+typedef struct s_light t_light;
 typedef struct s_camera t_camera;
 typedef struct s_canvas t_canvas;
+
+typedef struct s_object t_object;
 typedef struct s_sphere t_sphere;
+
 typedef struct s_mlx_data t_mlx_data;
 typedef struct s_hit_record t_hit_record;
 
 typedef int t_bool;
 #define FALSE 0
 #define TRUE 1
+
+typedef enum e_object_type {
+  SP,
+  LIGHT_POINT,
+} t_object_type;
+
+#define EPSILON 1e-6
 
 struct s_vec3 {
   double x;
@@ -36,6 +37,12 @@ struct s_vec3 {
 struct s_ray {
   t_point3 orig;
   t_vec3 dir;
+};
+
+struct s_light {
+  t_point3 orig;
+  t_color3 color;
+  double brightness;
 };
 
 struct s_camera {
@@ -52,6 +59,13 @@ struct s_canvas {
   int width;           // canvas width
   int height;          // canvas height;
   double aspect_ratio; //종횡비
+};
+
+struct s_object {
+  t_object_type type;
+  void *element;
+  void *next;
+  t_color3 albedo;
 };
 
 struct s_sphere {
@@ -77,6 +91,17 @@ struct s_hit_record {
   double tmin;
   double tmax;
   t_bool front_face;
+  t_color3 albedo;
+};
+
+struct s_scene {
+  t_canvas canvas;
+  t_camera camera;
+  t_object *world;
+  t_object *light;
+  t_color3 ambient; // 8.4에서 설명할 요소
+  t_ray ray;
+  t_hit_record rec;
 };
 
 #endif

@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/03 16:56:12 by mher              #+#    #+#             */
-/*   Updated: 2022/11/03 16:56:25 by mher             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef UTILS_H
 #define UTILS_H
@@ -35,5 +24,8 @@ double vdot(t_vec3 vec, t_vec3 vec2);
 t_vec3 vcross(t_vec3 vec, t_vec3 vec2);
 t_vec3 vunit(t_vec3 vec);
 t_vec3 vmin(t_vec3 vec1, t_vec3 vec2);
+
+void oadd(t_object **list, t_object *_new);
+t_object *olast(t_object *list);
 
 #endif
