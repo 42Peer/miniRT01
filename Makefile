@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: junkpark <junkpark@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/03 12:15:11 by junkpark         ###   ########.fr        #
+#    Created: 2022/03/26 18:07:13 by junkpark          #+#    #+#              #
+#    Updated: 2022/11/09 11:50:09 by junkpark         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ MLX 	= mlx
 
 # INCLUDE = -I ./include
 
-SRC_DIR = ./src
-SRC = main.c
+SRC = main.c scene.c
 
 OBJ = $(SRC:.c=.o)
 
