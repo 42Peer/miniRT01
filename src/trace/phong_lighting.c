@@ -20,10 +20,22 @@ t_color3 phong_lighting(t_scene *scene) {
   //(1, 1, 1)을 넘으면 (1, 1, 1)을 반환한다.
 }
 
+t_vec3 reflect(t_vec3 v, t_vec3 n) {
+  // v - 2 * dot(v, n) * n;
+  return (vminus(v, vmult(n, vdot(v, n) * 2)));
+}
+
 t_color3 point_light_get(t_scene *scene, t_light *light) {
   t_color3 diffuse;
   t_vec3 light_dir;
   double kd; // diffuse의 강도
+
+  t_color3 specular;
+  t_vec3 view_dir;
+  t_vec3 reflect_dir;
+  double spec;
+  double ksn;
+  double ks;
 
   light_dir = vunit(
       vminus(light->orig,
@@ -34,5 +46,12 @@ t_color3 point_light_get(t_scene *scene, t_light *light) {
             0.0); // (교점에서 출발하여 광원을 향하는 벡터)와 (교점에서의
                   // 법선벡터)의 내적값.
   diffuse = vmult(light->color, kd);
-  return (diffuse);
+
+  view_dir = vunit(vmult(scene->ray.dir, -1));
+  reflect_dir = reflect(vmult(light_dir, -1), scene->rec.normal);
+  ksn = 64; // shininess value
+  ks = 0.5; // specular strength
+  spec = pow(fmax(vdot(view_dir, reflect_dir), 0.0), ksn);
+  specular = vmult(vmult(light->color, ks), spec);
+  return (vplus(diffuse, specular));
 }
