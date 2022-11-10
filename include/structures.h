@@ -13,6 +13,8 @@ typedef struct s_canvas t_canvas;
 
 typedef struct s_object t_object;
 typedef struct s_sphere t_sphere;
+typedef struct s_plane t_plane;
+typedef struct s_cylinder t_cylinder;
 
 typedef struct s_mlx_data t_mlx_data;
 typedef struct s_hit_record t_hit_record;
@@ -21,10 +23,7 @@ typedef int t_bool;
 #define FALSE 0
 #define TRUE 1
 
-typedef enum e_object_type {
-  SP,
-  LIGHT_POINT,
-} t_object_type;
+typedef enum e_object_type { SP, LIGHT_POINT, PL, CY } t_object_type;
 
 #define EPSILON 1e-6
 #define LUMEN 1
@@ -75,6 +74,19 @@ struct s_sphere {
   double radius_pow_2;
 };
 
+struct s_plane {
+  t_point3 point;
+  t_vec3 normal;
+};
+
+struct s_cylinder {
+  t_point3 center;
+  double radius;
+  double radius_pow_2;
+  t_vec3 axis;
+  double height;
+};
+
 struct s_mlx_data {
   void *mlx;
   void *win;
@@ -92,7 +104,7 @@ struct s_hit_record {
   double tmin;
   double tmax;
   t_bool front_face;
-  t_color3 albedo;
+  t_color3 albedo; // albedo는 물체의 색상.
 };
 
 struct s_scene {

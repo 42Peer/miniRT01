@@ -61,11 +61,11 @@ t_color3 point_light_get(t_scene *scene, t_light *light) {
   diffuse = vmult(light->color, kd);
   view_dir = vunit(vmult(scene->ray.dir, -1));
   reflect_dir = reflect(vmult(light_dir, -1), scene->rec.normal);
-  ksn = 64; // 재질의 광택 정도
-  ks = 0.5; //
+  ksn = 256; // 재질의 광택 정도
+  ks = 0.5;  // 정반사율
   spec = pow(fmax(vdot(view_dir, reflect_dir), 0.0), ksn);
   specular = vmult(vmult(light->color, ks), spec);
   /* * * * 수정 * * * */
   brightness = light->brightness * LUMEN; // 기준 광속/광량을 정의한 매크로
-  return (vmult(vplus(vplus(scene->ambient, diffuse), specular), brightness));
+  return (vmult(vplus(diffuse, specular), brightness));
 }

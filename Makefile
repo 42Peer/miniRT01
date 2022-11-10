@@ -23,6 +23,8 @@ SRC = \
 	$(SRC_DIR)/trace/phong_lighting.c \
 	$(SRC_DIR)/trace/hit/hit.c \
 	$(SRC_DIR)/trace/hit/hit_sphere.c\
+	$(SRC_DIR)/trace/hit/hit_plane.c\
+	$(SRC_DIR)/trace/hit/hit_cylinder.c\
 	$(SRC_DIR)/trace/hit/normal.c\
 
 OBJ = $(SRC:.c=.o)
