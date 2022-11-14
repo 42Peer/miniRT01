@@ -59,8 +59,6 @@ int main(int ac, char **av)
 		return (1);
 	set_scene(&scene);
 	pixel_put(&scene);
-	
-
 	return (0);
 
 }
