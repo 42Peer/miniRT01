@@ -6,7 +6,7 @@
 #    By: seunghye <seunghye@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/14 15:14:52 by seunghye         ###   ########.fr        #
+#    Updated: 2022/11/14 16:36:07 by seunghye         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ VEC		= vec
 
 INCLUDE = -I./include
 
-SRC_DIR = ./src
+SRC_DIR = ./
 
 SRC = \
 	$(SRC_DIR)/main.c \
@@ -44,6 +44,7 @@ SRC = \
 	$(SRC_DIR)/trace/hit/hit_plane.c\
 	$(SRC_DIR)/trace/hit/normal.c\
 	$(SRC_DIR)/trace/hit/hit.c\
+	$(SRC_DIR)/wrap/wrap_malloc.c\
 
 OBJ = $(SRC:.c=.o)
 
