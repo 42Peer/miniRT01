@@ -1,3 +1,6 @@
+#ifndef MINIRT_H
+#define MINIRT_H
+
 #include "include/structures.h"
 #include <limits.h>
 #include <stdlib.h>
@@ -7,3 +10,5 @@
 int	wrap_open(char *filename, int oflag);
 void *wrap_malloc(size_t size);
 int	get_file_size(char *filename);
+
+#endif

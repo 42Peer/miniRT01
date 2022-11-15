@@ -25,7 +25,7 @@ void	sphere(t_scene *scene, char **data)
 	sphere->radius = a_to_d(data[2]) / 2;
 	sphere->radius_pow_2 = pow(sphere->radius, 2);
 	sphere->color = str_to_vec3(data[3]);
-	oadd(&(scene->object_list), object(sphere, PL));
+	oadd(&(scene->object_list), object(sphere, SP));
 }
 
 // pl     0.0,0.0,-10.0    0.0,1.0,0.0     0,0,225
