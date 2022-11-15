@@ -19,7 +19,7 @@ void	cylinder(t_scene *scene, char **data)
 	t_cylinder *cylinder;
 
 	// check_data();
-
+	
 	// 파싱
 	cylinder = (t_cylinder *)wrap_malloc(sizeof(t_cylinder));
 	cylinder->point = str_to_vec3(data[1]);

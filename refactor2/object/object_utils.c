@@ -43,23 +43,15 @@ double	a_to_d(const char *str)
 {
 	double	ret;
 	double	d;
+	int		sign;
 
 	ret = 0;
-	if (!str)
-	{
-		printf("a_to_d : str is null\n");
-		return (0);
-	}
-	if (!*str)
-	{
-		printf("a_to_d : *str is null\n");
-		return (0);
-	}
+	sign = 1;
 	while (*str == ' ' || (9 <= *str && *str <= 13))
 		++str;
 	if (*str == '+' || *str == '-')
 		if (*str++ == '-')
-			ret *= -1;
+			sign = -1;
 	while ('0' <= *str && *str <= '9')
 		ret = ret * 10 + (*str++ - '0');
 	if (*str == '.')
@@ -70,7 +62,9 @@ double	a_to_d(const char *str)
 		ret += (*(str++) - '0') * d;
 		d *= 0.1;
 	}
-	return (ret);
+	// if (*str != '\0')
+	// 	exit(1);
+	return (ret * sign);
 }
 
 // #include <stdio.h>

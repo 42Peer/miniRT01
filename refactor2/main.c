@@ -101,10 +101,10 @@ void	printf_test(t_scene *scene)
 	printf("-------------< scene >-------------\n");
 	// printf("[mlx]\n");
 	printf_camera(scene->camera);
-	printf("\n[ambient]\n");
 	printf_ambient(scene->ambient);
 	printf("\n[object]\n");
 	printf_list(scene->object_list);
+	printf_list(scene->light_list);
 	printf("-------------< end test >-------------\n");
 }
 

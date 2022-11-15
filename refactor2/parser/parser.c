@@ -44,16 +44,41 @@ static void unknown_object_error(void)
 	exit(1);
 }
 
+
+
 void object_parser(char **line, t_scene *scene)
 {
 	char **data;
-	
+
 	while (*line)
 	{
 		printf("line : %s\n", *line);
 		data = ft_split(*line, ' ');
 		line++;
 	
+		if (!ft_strcmp(data[0], "A"))
+			ambient(scene, data);
+		else if (!ft_strcmp(data[0], "L"))
+			light(scene, data);
+		else if (!ft_strcmp(data[0], "C"))
+			camera(scene, data);
+		else if (!ft_strcmp(data[0], "pl"))
+			plane(scene, data);
+		else if (!ft_strcmp(data[0], "sp"))
+			sphere(scene, data);
+		else if (!ft_strcmp(data[0], "cy"))
+			cylinder(scene, data);
+		else
+			unknown_object_error();
+		free_split(data);
+	}
+	
+	while (*line)
+	{
+		printf("line : %s\n", *line);
+		data = ft_split(*line, ' ');
+		line++;
+
 		if (!ft_strcmp(data[0], "A"))
 			ambient(scene, data);
 		else if (!ft_strcmp(data[0], "L"))
