@@ -14,7 +14,7 @@
 NAME 	= miniRT
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -g3 -fsanitize=address # -Wall -Wextra -Werror
 MFLAGS	= -framework OpenGL -framework AppKit
 
 MLX_DIR	= ./lib/libmlx
@@ -31,20 +31,31 @@ INCLUDE = -I./include
 SRC_DIR = ./
 
 SRC = \
-	$(SRC_DIR)/main.c \
-	$(SRC_DIR)/utils/vec3_utils.c \
-	$(SRC_DIR)/utils/object_utils.c \
-	$(SRC_DIR)/print/print.c \
-	$(SRC_DIR)/scene/canvas.c \
-	$(SRC_DIR)/scene/scene.c \
-	$(SRC_DIR)/scene/object_create.c\
-	$(SRC_DIR)/trace/ray.c \
-	$(SRC_DIR)/trace/phong_lighting.c\
-	$(SRC_DIR)/trace/hit/hit_sphere.c\
-	$(SRC_DIR)/trace/hit/hit_plane.c\
-	$(SRC_DIR)/trace/hit/normal.c\
-	$(SRC_DIR)/trace/hit/hit.c\
-	$(SRC_DIR)/wrap/wrap_malloc.c\
+		main.c	\
+		parser/parser.c \
+		object/ambient.c \
+		object/camera.c \
+		object/cylinder.c \
+		object/light.c \
+		object/object.c \
+		object/object_utils.c \
+		object/plane.c \
+		object/sphere.c \
+		wrap/wrap_open.c \
+		wrap/wrap_malloc.c \
+	# $(SRC_DIR)/main.c \
+	# $(SRC_DIR)/object/object_utils.c \
+	# $(SRC_DIR)/print/print.c \
+	# $(SRC_DIR)/scene/canvas.c \
+	# $(SRC_DIR)/scene/scene.c \
+	# $(SRC_DIR)/scene/object_create.c\
+	# $(SRC_DIR)/wrap/wrap_malloc.c\
+	#$(SRC_DIR)/trace/ray.c \
+	#$(SRC_DIR)/trace/phong_lighting.c\
+	#$(SRC_DIR)/trace/hit/hit_sphere.c\
+	#$(SRC_DIR)/trace/hit/hit_plane.c\
+	#$(SRC_DIR)/trace/hit/normal.c\
+	#$(SRC_DIR)/trace/hit/hit.c\
 
 OBJ = $(SRC:.c=.o)
 
@@ -52,9 +63,12 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -C $(FT_DIR)
+	$(MAKE) -C $(VEC_DIR)
 	$(CC) $(CFLAGS) -o $@ $^ \
 		-L$(MLX_DIR) -l$(MLX) $(MFLAGS) \
-		-L$(FT_DIR) -l$(FT)
+		-L$(FT_DIR) -l$(FT) \
+		-L$(VEC_DIR) -l$(VEC)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c -o $@ $^

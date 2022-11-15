@@ -7,14 +7,20 @@ void	camera(t_scene *scene, char **data)
 	t_camera	*camera;
 	double		degree;
 // 파싱
-	camera = (t_light *)wrap_malloc(sizeof(t_camera));
+	camera = wrap_malloc(sizeof(t_camera));
 	camera->orig = str_to_vec3(data[1]);
 	camera->camera_dir = str_to_vec3(data[2]);
 	degree = a_to_d(data[3]);
 	camera->focal_len = 1;
 	camera->viewport_h = 2 * tan((degree / 2) * (M_PI / 180));
 	camera->viewport_w = scene->mlx.canvas_ratio * camera->viewport_h;
-	camera->left_top = vplus(camera->orig, vminus(camera->viewport_h / 2, camera->viewport_w / 2));
+	camera->horizontal = vec3(camera->viewport_w, 0, 0);
+    camera->vertical = vec3(0, camera->viewport_h, 0);
+	camera->left_top = vplus(camera->orig, vminus(
+								vec3(0, camera->viewport_h / 2, 0), vec3(camera->viewport_w / 2, 0, 0)));
+	scene->camera = *camera;
+	//cam.left_bottom = vminus(vminus(vminus(cam.orig, vdivide(cam.horizontal, 2)),
+    //                            vdivide(cam.vertical, 2)), vec3(0, 0, focal_len));
 }
 // 파싱 이후 vector 계산
 

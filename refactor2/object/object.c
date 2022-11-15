@@ -1,5 +1,20 @@
 #include "../include/minirt.h"
 
+//void        oadd(t_object **list, t_object *new_obj)
+//{
+//    t_object    *cur;
+
+//    if (*list == NULL)
+//    {
+//        *list = new_obj;
+//        return ;
+//    }
+//    cur = *list;
+//    while ()
+//        list = (*list)->next;
+//    list = new_obj;
+//}
+
 void        oadd(t_object **list, t_object *new_obj)
 {
     t_object    *cur;
@@ -10,10 +25,26 @@ void        oadd(t_object **list, t_object *new_obj)
         return ;
     }
     cur = *list;
-    while (cur->next)
+    while (cur)
         cur = cur->next;
-    cur->next = new_obj;
+    cur = new_obj;
 }
+
+//void        oadd(t_object **list, t_object *new_obj)
+//{
+//    t_object    *cur;
+
+//    if (*list == NULL)
+//    {
+//        *list = new_obj;
+//        return ;
+//    }
+//    cur = *list;
+//    while (cur->next)
+//        cur = cur->next;
+//    cur->next = new_obj;
+//}
+
 
 t_object	*object(void *object, int type)
 {

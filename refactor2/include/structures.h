@@ -144,4 +144,5 @@ struct s_scene
 	t_ray			ray;			// camera -> viewport
 	t_hit_record	rec;			// ray가 만난 교점(hit)의 정보
 };
+
 #endif

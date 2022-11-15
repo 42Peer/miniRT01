@@ -1,6 +1,6 @@
 #include "../include/wrap.h"
 
-int open(const char *pathname, int flags)
+int wrap_open(const char *pathname, int flags)
 {
 	int fd;
 

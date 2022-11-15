@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/syslimits.h>
+#include "minirt.h"
 
 void *wrap_malloc(size_t size);
-int open(const char *pathname, int flags);
+int wrap_open(const char *pathname, int flags);
 
 #endif
