@@ -30,14 +30,14 @@ typedef enum e_object_type
 }	t_object_type;
 
 #define EPSILON 1e-6 // 0.000001
-#define LUMEN 3 // 이 값을 조절하여 장면의 밝기를 조절할 수 있다.
+#define LUMEN 2 // 이 값을 조절하여 장면의 밝기를 조절할 수 있다.
 
 #define MLX_WIDTH	800
 #define MLX_HEIGHT	600
-#define MLX_RATIO	(MLX_WIDTH / MLX_HEIGHT)
+#define MLX_RATIO	((double) MLX_WIDTH / MLX_HEIGHT)
 
 #define KS 0.5
-#define KSN 64
+#define KSN 1024
 // 3차원 좌표계
 struct s_vec3 
 {

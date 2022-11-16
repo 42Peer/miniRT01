@@ -44,7 +44,7 @@ t_color3    ray_color(t_scene *scene)
     //광선이 구에 적중하면(광선과 구가 교점이 있고, 교점이 카메라 앞쪽이라면!)
     scene->rec = record_init();
     if (hit(scene->object_list, &scene->ray, &scene->rec))
-        return (phong_lighting(scene)); 
+        return (phong_lighting(scene));
     else
 		return (color3(0, 0, 0));
 }

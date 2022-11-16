@@ -12,18 +12,15 @@ void	camera(t_scene *scene, char **data)
 	camera->camera_dir = str_to_vec3(data[2]);
 	degree = a_to_d(data[3]);
 	camera->focal_len = 1;
-	camera->viewport_h = 2 * tan((degree / 2) * (M_PI / 180));
-	camera->viewport_w =  MLX_RATIO * camera->viewport_h;
+	//camera->viewport_h = 2 * tan((degree / 2) * (M_PI / 180));
+	//camera->viewport_w =  MLX_RATIO * camera->viewport_h;
+	camera->viewport_w = 2 * tan((degree / 2) * (M_PI / 180));
+	camera->viewport_h = camera->viewport_w / MLX_RATIO;
 	camera->horizontal = vec3(camera->viewport_w, 0, 0);
-    camera->vertical = vec3(0, (camera->viewport_h), 0);
-	//camera->left_top = vplus(camera->orig, vminus(
-	//							vec3(0, camera->viewport_h / 2, 0), cameravec3(->viewport_w / 2, 0, 0)));
-	scene->camera = *camera;
-	camera->left_top = vminus(vminus(vplus(camera->orig, vdivide_k(camera->horizontal, 2)),
+    camera->vertical = vec3(0, camera->viewport_h * -1, 0);
+	camera->left_top = vminus(vminus(vminus(camera->orig, vdivide_k(camera->horizontal, 2)),
 					vdivide_k(camera->vertical, 2)), vec3(0, 0, camera->focal_len));
-
-	//cam.left_bottom = vminus(vminus(vminus(cam.orig, vdivide(cam.horizontal, 2)),
-    //                            vdivide(cam.vertical, 2)), vec3(0, 0, focal_len));
+	scene->camera = *camera;
 }
 // 파싱 이후 vector 계산
 

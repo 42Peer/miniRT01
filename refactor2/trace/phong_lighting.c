@@ -6,7 +6,7 @@ t_color3        phong_lighting(t_scene *scene)
     t_object    *lights;
 
 	// ambient 는 한번만 적용하기 때문에 초기화할때 한번만 해주면 된다.
-    light_color = scene->ambient.color;
+    light_color = vmult_k(scene->ambient.color, scene->ambient.ambient);
     lights = scene->light_list;
 	//여러 광원에서 나오는 모든 빛에 대해 각각 diffuse, specular 값을 모두 구해줘야 한다
     while (lights) 

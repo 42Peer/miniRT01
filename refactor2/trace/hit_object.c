@@ -10,7 +10,6 @@ t_bool	set_root(double a, double half_b, double c, t_hit_record *rec)
 	discriminant = half_b * half_b - a * c;
 	if (discriminant < 0)
 		return (FALSE);
-	printf("herer\n");
 	sqrtd = sqrt(discriminant);
 	root = (-half_b - sqrtd) / a;
 	if (root < rec->tmin || rec->tmax < root)
@@ -73,27 +72,27 @@ t_bool	hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
 	return (TRUE);
 }
 
-//t_bool hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
-//{
-//	t_cylinder *cy;
+t_bool hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
+{
+	t_cylinder *cy;
 
-//	t_vec3  oc; //방향벡터로 나타낸 구의 중심, oc = origin - center
-//	double  a; // D dot D
-//	double  half_b;
-//	double  c; // (O - C) dot (O - C) - R^2
+	t_vec3  uo_c = vcross(ray->dir, cy->normal);
+	t_vec3  po_c = vcross(vminus(ray->orig, cy->point), cy->normal);
+	double  a; // D dot D
+	double  half_b;
+	double  c; // (O - C) dot (O - C) - R^2
 
-//	cy = cy_obj->element;
+	cy = cy_obj->element;
 
-//	oc = vminus(ray->orig, cy->point);
-//	a = vlength2(ray->dir);
-//	half_b = vdot(oc, ray->dir);
-//	c = vlength2(oc) - cy->radius_pow_2;
+	a = vlength2(uo_c);
+	half_b = vdot(uo_c, po_c);
+	c = vlength2(po_c) - cy->radius * cy->radius;
 
-//	if (!set_root(a, half_b, c, rec))
-//		return (FALSE);
-//	rec->p = ray_at(ray, rec->t);
-//	rec->color = cy->color;
-//	rec->normal = vunit(vminus(rec->p, cy->point));
-//	set_face_normal(ray, rec); // rec의 법선벡터와 광선의 방향벡터를 비교해서 앞면인지 뒷면인지 t_bool 값으로 저장.
-//	return (TRUE);
-//}
+	if (!set_root(a, half_b, c, rec))
+		return (FALSE);
+	rec->p = ray_at(ray, rec->t);
+	rec->color = cy->color;
+	rec->normal = vunit(vminus(rec->p, cy->point));
+	set_face_normal(ray, rec); // rec의 법선벡터와 광선의 방향벡터를 비교해서 앞면인지 뒷면인지 t_bool 값으로 저장.
+	return (TRUE);
+}
