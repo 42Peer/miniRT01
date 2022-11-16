@@ -10,6 +10,7 @@ t_bool	set_root(double a, double half_b, double c, t_hit_record *rec)
 	discriminant = half_b * half_b - a * c;
 	if (discriminant < 0)
 		return (FALSE);
+	printf("herer\n");
 	sqrtd = sqrt(discriminant);
 	root = (-half_b - sqrtd) / a;
 	if (root < rec->tmin || rec->tmax < root)
@@ -34,7 +35,6 @@ t_bool hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 
 	sp = sp_obj->element;
 	oc = vminus(ray->orig, sp->center);
-
 	a = vlength2(ray->dir);
 	half_b = vdot(oc, ray->dir);
 	c = vlength2(oc) - sp->radius_pow_2;
