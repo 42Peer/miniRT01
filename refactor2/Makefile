@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seunghye <seunghye@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/14 16:36:07 by seunghye         ###   ########.fr        #
+#    Updated: 2022/11/16 15:07:09 by jujeon           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,19 +43,24 @@ SRC = \
 		object/sphere.c \
 		wrap/wrap_open.c \
 		wrap/wrap_malloc.c \
-	# $(SRC_DIR)/main.c \
-	# $(SRC_DIR)/object/object_utils.c \
-	# $(SRC_DIR)/print/print.c \
-	# $(SRC_DIR)/scene/canvas.c \
-	# $(SRC_DIR)/scene/scene.c \
-	# $(SRC_DIR)/scene/object_create.c\
-	# $(SRC_DIR)/wrap/wrap_malloc.c\
-	#$(SRC_DIR)/trace/ray.c \
-	#$(SRC_DIR)/trace/phong_lighting.c\
-	#$(SRC_DIR)/trace/hit/hit_sphere.c\
-	#$(SRC_DIR)/trace/hit/hit_plane.c\
-	#$(SRC_DIR)/trace/hit/normal.c\
-	#$(SRC_DIR)/trace/hit/hit.c\
+		trace/hit.c \
+		trace/hit_object.c \
+		trace/ray.c \
+		trace/phong_lighting.c \
+
+# $(SRC_DIR)/main.c \
+# $(SRC_DIR)/object/object_utils.c \
+# $(SRC_DIR)/print/print.c \
+# $(SRC_DIR)/scene/canvas.c \
+# $(SRC_DIR)/scene/scene.c \
+# $(SRC_DIR)/scene/object_create.c\
+# $(SRC_DIR)/wrap/wrap_malloc.c\
+#$(SRC_DIR)/trace/ray.c \
+#$(SRC_DIR)/trace/phong_lighting.c\
+#$(SRC_DIR)/trace/hit/hit_sphere.c\
+#$(SRC_DIR)/trace/hit/hit_plane.c\
+#$(SRC_DIR)/trace/hit/normal.c\
+#$(SRC_DIR)/trace/hit/hit.c\
 
 OBJ = $(SRC:.c=.o)
 
@@ -75,9 +80,13 @@ $(NAME): $(OBJ)
 	
 clean:
 	$(MAKE) clean -C $(MLX_DIR)
+	$(MAKE) clean -C $(FT_DIR)
+	$(MAKE) clean -C $(VEC_DIR)
 	rm -f $(OBJ)
 
 fclean: clean
+	$(MAKE) fclean -C $(FT_DIR)
+	$(MAKE) fclean -C $(VEC_DIR)
 	rm -f $(NAME)
 
 re: fclean all

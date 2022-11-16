@@ -20,7 +20,7 @@ void	plane(t_scene *scene, char **data)
 	plane->center = str_to_vec3(data[1]);
 	// invalid : (3차원 좌표계 백터의 크기 != 1) error
 	plane->normal = str_to_vec3(data[2]);
-	plane->color = str_to_vec3(data[3]);
+	plane->color = parse_color(data[3]);
 	oadd(&scene->object_list, object(plane, PL));
 }
 

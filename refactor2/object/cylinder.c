@@ -26,6 +26,6 @@ void	cylinder(t_scene *scene, char **data)
 	cylinder->normal = str_to_vec3(data[2]);
 	cylinder->radius = a_to_d(data[3]) / 2;
 	cylinder->height = a_to_d(data[4]);
-	cylinder->color = str_to_vec3(data[5]);
+	cylinder->color = parse_color(data[5]);
 	oadd(&scene->object_list, object(cylinder, CY));
 }

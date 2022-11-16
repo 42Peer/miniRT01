@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong_lighting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:23:31 by mher              #+#    #+#             */
-/*   Updated: 2022/11/10 15:44:41 by mher             ###   ########.fr       */
+/*   Updated: 2022/11/16 14:56:01 by jujeon           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_color3        phong_lighting(t_scene *scene)
 
 	// ambient 는 한번만 적용하기 때문에 초기화할때 한번만 해주면 된다.
     light_color = scene->ambient;
-    lights = scene->light;
+    lights = scene->light_list;
 	//여러 광원에서 나오는 모든 빛에 대해 각각 diffuse, specular 값을 모두 구해줘야 한다
     while (lights) 
     {
@@ -40,7 +40,7 @@ t_color3        phong_lighting(t_scene *scene)
     }
     //모든 광원에 의한 빛의 양을 구한 후, 오브젝트의 반사율과 곱해준다. 
 	//그 값이 (1, 1, 1)을 넘으면 (1, 1, 1)을 반환한다.
-    return (vmin(vmult_(light_color, scene->rec.albedo), color3(1, 1, 1)));
+    return (vmin(vmult_(light_color, scene->rec.color), color3(1, 1, 1)));
 }
 
 t_vec3          reflect(t_vec3 v, t_vec3 n)

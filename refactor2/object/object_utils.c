@@ -32,9 +32,9 @@ t_color3	parse_color(char *data)
 	raw_data = ft_split(data, ',');
 	// raw_data 3개가 되었는지 체크 필요.
 	// 0~255 범위 넘는지 체크
-	vec.x = a_to_d(raw_data[0]);
-	vec.y = a_to_d(raw_data[1]);
-	vec.z = a_to_d(raw_data[2]);
+	vec.x = a_to_d(raw_data[0]) / 255.999;
+	vec.y = a_to_d(raw_data[1]) / 255.999;
+	vec.z = a_to_d(raw_data[2]) / 255.999;
 	// 프리해줘야함
 	return (vec);
 }

@@ -1,120 +1,71 @@
 #include "./include/minirt.h"
 
-void	printf_vec(t_vec3 v)
+#include "./include/structures.h"
+#include "./lib/libmlx/mlx.h"
+// #include "./include/utils.h"
+
+void set_mlx(t_mlx *mlx)
 {
-	printf("x: %lf y: %lf z: %lf\n", v.x, v.y, v.z);
+	mlx->width = MLX_WIDTH;
+	mlx->height = MLX_HEIGHT;
+	mlx->mlx = mlx_init();
+	mlx->img = mlx_new_image(&mlx->mlx, mlx->width, mlx->height);
+	mlx->win = mlx_new_window(&mlx->mlx, mlx->width, mlx->height, "miniRT");
+	mlx->addr = mlx_get_data_addr(&mlx->img, &mlx->bits_per_pixel, &mlx->width, &mlx->endian);
 }
 
-void	printf_camera(t_camera camera)
+// void set_scene(t_scene *scene)
+// {
+// 	set_mlx(&scene->mlx);
+// }
+
+
+
+void my_mlx_pixel_put(t_mlx *data, int x, int y, t_color3 color)
 {
-	printf("[camera]\n");
-	printf("orig : ");
-	printf_vec(camera.orig);
-	printf("camera_dir : ");
-	printf_vec(camera.camera_dir);
+  char *dst;
+
+  dst = data->addr + (y * data->width + x * (data->bits_per_pixel / 8));
+  *(unsigned int*)dst = (int)(color.x * 255) << 16 | (int)(color.y * 255) << 8 | (int)(color.z * 255);
 }
 
-void	printf_ambient(t_ambient ambient)
+void	pixel_put(t_scene *scene)
 {
-	printf("[ambient]\n");
-	printf("ambient : %lf\n", ambient.ambient);
-	printf("color : ");
-	printf_vec((t_vec3)ambient.color);
-	printf("\n");
-}
+	t_color3	pixel_color;
+	int			i;
+	int			j;
+	double		u;
+	double		v;
 
-void	printf_light(t_light light)
-{
-	printf("[light]\n");
-	printf("origin : ");
-	printf_vec(light.origin);
-	printf("color : ");
-	printf_vec((t_vec3)light.light_color);
-	printf("bright_ratio : %lf\n", light.bright_ratio);
-	printf("\n");
-}
-
-
-void	printf_cylinder(t_cylinder cylinder)
-{
-	printf("[cylinder]\n");
-	printf("point : ");
-	printf_vec(cylinder.point);
-	printf("normal : ");
-	printf_vec(cylinder.normal);
-	printf("color : ");
-	printf_vec(cylinder.color);
-	printf("radius : ");
-	printf("%lf\n", cylinder.radius);
-	printf("height : ");
-	printf("%lf\n", cylinder.height);
-}
-
-void	printf_sphere(t_sphere sphere)
-{
-	printf("[sphere]\n");
-	printf("center : ");
-	printf_vec(sphere.center);
-	printf("radius : ");
-	printf("%lf\n", sphere.radius);
-	printf("radius_pow_2 : ");
-	printf("%lf\n", sphere.radius_pow_2);
-	printf("color : ");
-	printf_vec(sphere.color);
-	printf("\n");
-}
-
-void	printf_plane(t_plane plane)
-{
-	printf("[plane]\n");
-	printf("center point : ");
-	printf_vec(plane.center);
-	printf("normalized oriented : ");
-	printf_vec(plane.normal);
-	printf("color : ");
-	printf_vec(plane.color);
-	printf("\n");
-
-}
-
-void	printf_list(t_object *obj)
-{
-	t_object *cur;
-	cur = obj;
-	while (cur)
+	j = 0;
+ 	while (j < scene->mlx.height)
 	{
-		if (cur->type == CY)
-			printf_cylinder(*(t_cylinder *)cur->element);
-		else if (cur->type == SP)
-			printf_sphere(*(t_sphere *)cur->element);
-		else if (cur->type == LIGHT_POINT)
-			printf_light(*(t_light *)cur->element);
-		else if (cur->type == PL)
-			printf_plane(*(t_plane *)cur->element);
-
-		cur = cur->next;
+		i = 0;
+		while (i < scene->mlx.width)
+		{
+			u = (double)i / (scene->mlx.width - 1);
+			v = (double)j / (scene->mlx.height - 1);
+			scene->ray = ray_primary(&(scene->camera), u, v);
+			pixel_color = ray_color(scene);
+			my_mlx_pixel_put(&(scene->mlx), i, j, pixel_color);
+			++i;
+		}
+		++j;
 	}
-}
-
-void	printf_test(t_scene *scene)
-{
-	printf("-------------< scene >-------------\n");
-	// printf("[mlx]\n");
-	printf_camera(scene->camera);
-	printf_ambient(scene->ambient);
-	printf("\n[object]\n");
-	printf_list(scene->object_list);
-	printf_list(scene->light_list);
-	printf("-------------< end test >-------------\n");
 }
 
 int main(int argc, char **argv)
 {
 	t_scene	scene;
-	// printf("hello world!\n");
+	// mini.rt 파일인지 확장자 검사 필요
+	if (argc != 2)
+		return (1);
 	scene = parse(argv[1]);
-	//scene.light_list = 0;
-	printf_test(&scene);
+	set_mlx(&scene.mlx);
+	pixel_put(&scene);
+	mlx_put_image_to_window(scene.mlx.mlx, scene.mlx.win, scene.mlx.img, 0, 0);
+	mlx_loop(scene.mlx.mlx);
+	// printf_test(&scene);
 }
 
 /*

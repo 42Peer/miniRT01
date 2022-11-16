@@ -2,7 +2,7 @@
 # define VECTOR_H
 
 #include <math.h>
-#include "../include/structures.h"
+#include "structures.h"
 
 t_vec3      vec3(double x, double y, double z);
 t_point3    point3(double x, double y, double z);
@@ -15,9 +15,9 @@ t_vec3      vplus(t_vec3 vec, t_vec3 vec2);
 // 벡터차
 t_vec3      vminus(t_vec3 vec, t_vec3 vec2);
 // 벡터 * 스칼라 곱연산
-t_vec3      vmult(t_vec3 vec, double t);
+t_vec3      vmult_k(t_vec3 vec, double t);
 // 벡터 축 값끼리 곱연산
-t_vec3      vmult_(t_vec3 vec, t_vec3 vec2);
+t_vec3      vmult(t_vec3 vec, t_vec3 vec2);
 // 벡터 스칼라 나누기
 t_vec3      vdivide(t_vec3 vec, double t);
 // 벡터 내적

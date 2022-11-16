@@ -15,10 +15,14 @@ void	camera(t_scene *scene, char **data)
 	camera->viewport_h = 2 * tan((degree / 2) * (M_PI / 180));
 	camera->viewport_w = scene->mlx.canvas_ratio * camera->viewport_h;
 	camera->horizontal = vec3(camera->viewport_w, 0, 0);
-    camera->vertical = vec3(0, camera->viewport_h, 0);
+    camera->vertical = vec3(0, (camera->viewport_h) * (-1), 0);
 	camera->left_top = vplus(camera->orig, vminus(
 								vec3(0, camera->viewport_h / 2, 0), vec3(camera->viewport_w / 2, 0, 0)));
 	scene->camera = *camera;
+	
+	vminus(vminus(vminus(cam.orig, vdivide(cam.horizontal, 2)),
+					vdivide(cam.vertical, 2)), vec3(0, 0, focal_len));
+
 	//cam.left_bottom = vminus(vminus(vminus(cam.orig, vdivide(cam.horizontal, 2)),
     //                            vdivide(cam.vertical, 2)), vec3(0, 0, focal_len));
 }
