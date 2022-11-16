@@ -13,7 +13,7 @@ void	camera(t_scene *scene, char **data)
 	degree = a_to_d(data[3]);
 	camera->focal_len = 1;
 	camera->viewport_h = 2 * tan((degree / 2) * (M_PI / 180));
-	camera->viewport_w = scene->mlx.canvas_ratio * camera->viewport_h;
+	camera->viewport_w =  MLX_RATIO * camera->viewport_h;
 	camera->horizontal = vec3(camera->viewport_w, 0, 0);
     camera->vertical = vec3(0, (camera->viewport_h), 0);
 	//camera->left_top = vplus(camera->orig, vminus(

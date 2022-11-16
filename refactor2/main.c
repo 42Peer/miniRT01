@@ -8,24 +8,18 @@ void set_mlx(t_mlx *mlx)
 {
 	mlx->width = MLX_WIDTH;
 	mlx->height = MLX_HEIGHT;
+	mlx->canvas_ratio = MLX_RATIO;
 	mlx->mlx = mlx_init();
-	mlx->img = mlx_new_image(&mlx->mlx, mlx->width, mlx->height);
-	mlx->win = mlx_new_window(&mlx->mlx, mlx->width, mlx->height, "miniRT");
-	mlx->addr = mlx_get_data_addr(&mlx->img, &mlx->bits_per_pixel, &mlx->width, &mlx->endian);
+	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
+	mlx->win = mlx_new_window(mlx->mlx, mlx->width, mlx->height, "miniRT");
+	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->line_length, &mlx->endian);
 }
-
-// void set_scene(t_scene *scene)
-// {
-// 	set_mlx(&scene->mlx);
-// }
-
-
 
 void my_mlx_pixel_put(t_mlx *data, int x, int y, t_color3 color)
 {
   char *dst;
 
-  dst = data->addr + (y * data->width + x * (data->bits_per_pixel / 8));
+  dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
   *(unsigned int*)dst = (int)(color.x * 255) << 16 | (int)(color.y * 255) << 8 | (int)(color.z * 255);
 }
 

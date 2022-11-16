@@ -34,6 +34,7 @@ typedef enum e_object_type
 
 #define MLX_WIDTH	800
 #define MLX_HEIGHT	600
+#define MLX_RATIO	(MLX_WIDTH / MLX_HEIGHT)
 
 #define KS 0.5
 #define KSN 64
@@ -101,18 +102,6 @@ struct s_ambient
 };
 
 // canvas 구조체로 변경
-struct s_mlx
-{
-	void	*mlx;
-	void	*win;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		endian;
-	int		width;				// line_length
-	int		height;
-	double	canvas_ratio;
-};
 
 struct s_hit_record
 {
@@ -137,6 +126,20 @@ struct s_light
 	t_point3	origin;			// 광원의 위치
 	t_color3	light_color;	// 광원의 색상 => 보너스 영역에서만 사용
 	double		bright_ratio;	// 밝기
+};
+
+struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		endian;
+	int		width;				// line_length
+	int		height;
+	int		line_length;
+	double	canvas_ratio;
 };
 
 struct s_scene
