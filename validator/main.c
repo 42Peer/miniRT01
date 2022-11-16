@@ -6,7 +6,7 @@
 /*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 01:44:16 by mher              #+#    #+#             */
-/*   Updated: 2022/11/16 12:16:06 by mher             ###   ########.fr       */
+/*   Updated: 2022/11/16 13:00:01 by mher             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,6 +279,8 @@ void check_object_C(char *str)
 {
 	char **column;
 	column = ft_split(str, ' ');
+
+	// todo camera 방향벡터 0,0,0 에러처리
 
 	check_object_position(&str[1]);
 	check_column_cnt(column, 4);
