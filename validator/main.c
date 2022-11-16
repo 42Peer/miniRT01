@@ -6,7 +6,7 @@
 /*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 01:44:16 by mher              #+#    #+#             */
-/*   Updated: 2022/11/16 03:41:48 by mher             ###   ########.fr       */
+/*   Updated: 2022/11/16 11:41:46 by mher             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,10 +190,29 @@ void check_double(char *str)
 
 void check_color3(char *str)
 {
+	char *valide_char = "0123456789,";
+	int v_len = ft_strlen(valide_char);
+	int filter[128] = {0};
 	char **color3;
 	int tmp;
 	int i;
 
+	i = 0;
+	while (i < v_len)
+	{
+		filter[(int)valide_char[i]] += 1;
+		i++;
+	}
+	i = 0;
+	while (str[i])
+	{
+		if (filter[(int)str[i]] == 0)
+		{
+			printf("invalid color3 : %c\n", str[i]);
+			exit(1);
+		}
+		i++;
+	}
 	color3 = ft_split(str, ',');
 	check_column_cnt(color3, 3);
 	i = 0;
