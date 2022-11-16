@@ -6,7 +6,7 @@
 /*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 01:44:16 by mher              #+#    #+#             */
-/*   Updated: 2022/11/16 12:10:34 by mher             ###   ########.fr       */
+/*   Updated: 2022/11/16 12:16:06 by mher             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,13 +249,13 @@ void check_vec3(char *str)
 
 void check_fov(char *str)
 {
-	int fov;
+	double fov;
 
 	check_double(str);
 	fov = a_to_d(str);
 	if (fov < 0 || fov > 180)
 	{
-		printf("invalid fov : %d\n", fov);
+		printf("invalid fov : %lf\n", fov);
 		exit(1);
 	}
 }
