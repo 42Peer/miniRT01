@@ -19,7 +19,7 @@ t_vec3      vmult_k(t_vec3 vec, double t);
 // 벡터 축 값끼리 곱연산
 t_vec3      vmult(t_vec3 vec, t_vec3 vec2);
 // 벡터 스칼라 나누기
-t_vec3      vdivide(t_vec3 vec, double t);
+t_vec3      vdivide_k(t_vec3 vec, double t);
 // 벡터 내적
 double      vdot(t_vec3 vec, t_vec3 vec2);
 // 벡터 외적
