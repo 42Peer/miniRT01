@@ -53,6 +53,7 @@ void		set_face_normal(t_ray *r, t_hit_record *rec);
 t_bool		set_root(double a, double half_b, double c, t_hit_record *rec);
 t_bool		hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec);
 t_bool		hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec);
+t_bool		hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec);
 t_color3	phong_lighting(t_scene *scene);
 t_bool		in_shadow(t_scene *scene, t_vec3 light_vec);
 t_color3	get_diffuse(t_scene *scene, t_light *light, t_vec3 light_dir);

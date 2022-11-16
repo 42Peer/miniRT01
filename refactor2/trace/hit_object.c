@@ -78,7 +78,7 @@ t_bool hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 
 	t_vec3  uo_c = vcross(ray->dir, cy->normal);
 	t_vec3  po_c = vcross(vminus(ray->orig, cy->point), cy->normal);
-	double  a; // D dot D
+	double  a; // D cross n
 	double  half_b;
 	double  c; // (O - C) dot (O - C) - R^2
 
