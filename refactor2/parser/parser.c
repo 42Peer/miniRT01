@@ -87,6 +87,7 @@ char	**file_parser(char *filename)
 	fd = wrap_open(filename, O_RDONLY);
 	raw_data = (char *)wrap_malloc(sizeof(char) * (count + 1));
 	read(fd, raw_data, count);
+	raw_data[count] = '\0';
 	close(fd);
 	line = ft_split(raw_data, '\n');
 	return (line);
