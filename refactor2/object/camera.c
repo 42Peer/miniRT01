@@ -2,26 +2,33 @@
 
 // C '-50.0,0,20' '0,0,1' '70' xyz 방향벡터 FOV(dgrees)
 
-void	camera(t_scene *scene, char **data)
+void camera(t_scene *scene, char **data) 
 {
-	t_camera	*camera;
+	t_camera camera;
 	double		degree;
-// 파싱
-	camera = wrap_malloc(sizeof(t_camera));
-	camera->orig = str_to_vec3(data[1]);
-	camera->camera_dir = str_to_vec3(data[2]);
+
+	camera.orig = str_to_vec3(data[1]);
+	camera.camera_dir = str_to_vec3(data[2]);
 	degree = a_to_d(data[3]);
-	camera->focal_len = 1;
-	//camera->viewport_h = 2 * tan((degree / 2) * (M_PI / 180));
-	//camera->viewport_w =  MLX_RATIO * camera->viewport_h;
-	camera->viewport_w = 2 * tan((degree / 2) * (M_PI / 180));
-	camera->viewport_h = camera->viewport_w / MLX_RATIO;
-	camera->horizontal = vec3(camera->viewport_w, 0, 0);
-    camera->vertical = vec3(0, camera->viewport_h * -1, 0);
-	camera->left_top = vminus(vminus(vminus(camera->orig, vdivide_k(camera->horizontal, 2)),
-					vdivide_k(camera->vertical, 2)), vec3(0, 0, camera->focal_len));
-	scene->camera = *camera;
+	
+	t_vec3	w = vunit(vmult_k(camera.camera_dir, -1));
+	t_vec3	u = vunit(vcross(vec3(0,1,0), w)); 
+	t_vec3	v = vcross(w, u);
+
+	camera.viewport_h = 2.0 * tan(degree / 360 * M_PI); //camera.viewport_w / MLX_RATIO;
+	camera.viewport_w = camera.viewport_h * MLX_RATIO; //2 * tan((degree / 2) * (M_PI / 180))
+	camera.focal_len = 1;
+	camera.horizontal = vmult_k(u, camera.viewport_w);
+	camera.vertical = vmult_k(v, camera.viewport_h * -1);;
+	camera.left_top = vminus(
+						vminus(
+							vminus(camera.orig, vdivide_k(camera.horizontal, 2)), 
+							vdivide_k(camera.vertical, 2)
+							),
+						w);
+	scene->camera = camera;
 }
+
 // 파싱 이후 vector 계산
 
 // struct s_camera 
