@@ -62,7 +62,7 @@ t_bool	hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
 	root = numerator / denominator;
 
 	// tmin:0과 tmax:INFF 사이에 있는 근이 있는지 체크, 작은 근부터 체크.
-	if (root < rec->tmin || rec->tmax < root) 
+	if (root < rec->tmin || rec->tmax < root)
 		return (FALSE);
 	rec->t = root;
 	rec->p = ray_at(ray, root);
@@ -81,9 +81,9 @@ t_bool hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 	t_vec3 cp;
 
 	if (!set_root(
-		vlength2(uo_c), 
-		vdot(uo_c, po_c), 
-		vlength2(po_c) - cy->radius * cy->radius, 
+		vlength2(uo_c),
+		vdot(uo_c, po_c),
+		vlength2(po_c) - cy->radius * cy->radius,
 		rec))
 		return (FALSE);
 	rec->p = ray_at(ray, rec->t);
@@ -102,28 +102,27 @@ t_bool hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 // 평면상의 한점 (원의 중점 좌표)
 //cy->center = vplus(cy->point, vmult_k(cy->normal, cy->height / 2));
 
-// t_bool	hit_circle(t_cylinder *cy, t_ray *ray, t_hit_record *rec)
+// t_bool	hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
 // {
-// 	// t_cylinder	*cy;
+// 	t_plane	*pl;
 // 	double denominator;
 // 	double numerator;
 // 	double root;
-// 	const t_point3	center = vplus(cy->point, vmult_k(cy->normal, cy->height / 2));
-// 
-// 	// cy = cy_obj->element;
-// 	denominator = vdot(cy->normal, ray->dir);
+
+// 	pl = pl_obj->element;
+// 	denominator = vdot(pl->normal, ray->dir);
 // 	if (fabs(denominator) < EPSILON)
 // 		return (FALSE);
-// 	numerator = vdot(vminus(center, ray->orig), cy->normal);
+// 	numerator = vdot(vminus(pl->center, ray->orig), pl->normal);
 // 	root = numerator / denominator;
-// 
+
 // 	// tmin:0과 tmax:INFF 사이에 있는 근이 있는지 체크, 작은 근부터 체크.
-// 	if (root < rec->tmin || rec->tmax < root) 
+// 	if (root < rec->tmin || rec->tmax < root)
 // 		return (FALSE);
 // 	rec->t = root;
 // 	rec->p = ray_at(ray, root);
-// 	rec->color = cy->color;
-// 	rec->normal = cy->normal;
+// 	rec->color = pl->color;
+// 	rec->normal = pl->normal;
 // 	set_face_normal(ray, rec);
 // 	return (TRUE);
 // }
@@ -135,12 +134,7 @@ t_bool	hit_circle(t_cylinder *cy, t_ray *ray, t_hit_record *rec)
 	double numerator;
 	double root;
 	const t_point3	center = vplus(cy->point, vmult_k(cy->normal, cy->height / 2));
-	t_vec3	cp = vminus(rec->p, cy->point);
-	t_vec3	c_center = vminus(cy->point, center);
 
-
-	if (sqrt(vlength2(cp) - vlength2(c_center)) > cy->radius)
-		return (FALSE);
 	// cy = cy_obj->element;
 	denominator = vdot(cy->normal, ray->dir);
 	if (fabs(denominator) < EPSILON)
@@ -149,13 +143,47 @@ t_bool	hit_circle(t_cylinder *cy, t_ray *ray, t_hit_record *rec)
 	root = numerator / denominator;
 
 	// tmin:0과 tmax:INFF 사이에 있는 근이 있는지 체크, 작은 근부터 체크.
-	if (root < rec->tmin || rec->tmax < root) 
+	if (root < rec->tmin || rec->tmax < root)
 		return (FALSE);
 	rec->t = root;
 	rec->p = ray_at(ray, root);
 	rec->color = cy->color;
 	rec->normal = cy->normal;
+
+	if (vlength(vminus(rec->p, center)) - cy->radius > EPSILON)
+		return (FALSE);
 	set_face_normal(ray, rec);
 	return (TRUE);
 }
+
+// t_bool	hit_circle(t_cylinder *cy, t_ray *ray, t_hit_record *rec)
+// {
+// 	// t_cylinder	*cy;
+// 	double denominator;
+// 	double numerator;
+// 	double root;
+// 	const t_point3	center = vplus(cy->point, vmult_k(cy->normal, cy->height / 2));
+// 	t_vec3	cp = vminus(rec->p, cy->point);
+// 	t_vec3	c_center = vminus(cy->point, center);
+
+
+// 	if (sqrt(vlength2(cp) - vlength2(c_center)) > cy->radius)
+// 		return (FALSE);
+// 	// cy = cy_obj->element;
+// 	denominator = vdot(cy->normal, ray->dir);
+// 	if (fabs(denominator) < EPSILON)
+// 		return (FALSE);
+// 	numerator = vdot(vminus(center, ray->orig), cy->normal);
+// 	root = numerator / denominator;
+
+// 	// tmin:0과 tmax:INFF 사이에 있는 근이 있는지 체크, 작은 근부터 체크.
+// 	if (root < rec->tmin || rec->tmax < root)
+// 		return (FALSE);
+// 	rec->t = root;
+// 	rec->p = ray_at(ray, root);
+// 	rec->color = cy->color;
+// 	rec->normal = cy->normal;
+// 	set_face_normal(ray, rec);
+// 	return (TRUE);
+// }
 
