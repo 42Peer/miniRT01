@@ -20,6 +20,9 @@ typedef int t_bool;
 #define FALSE 0
 #define TRUE 1
 
+#define TOP 1
+#define BOTTOM -1
+
 typedef enum e_object_type 
 {
 	SP,
