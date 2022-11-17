@@ -23,7 +23,7 @@ void	cylinder(t_scene *scene, char **data)
 	// 파싱
 	cylinder = (t_cylinder *)wrap_malloc(sizeof(t_cylinder));
 	cylinder->point = str_to_vec3(data[1]);
-	cylinder->normal = str_to_vec3(data[2]);
+	cylinder->normal = vunit(str_to_vec3(data[2]));
 	cylinder->radius = a_to_d(data[3]) / 2;
 	cylinder->height = a_to_d(data[4]);
 	cylinder->color = parse_color(data[5]);
