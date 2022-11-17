@@ -6,7 +6,7 @@
 /*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 01:44:16 by mher              #+#    #+#             */
-/*   Updated: 2022/11/16 13:00:01 by mher             ###   ########.fr       */
+/*   Updated: 2022/11/17 18:00:17 by mher             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,9 +211,9 @@ void check_color3(char *str)
 			printf("invalid color3 : %c\n", str[i]);
 			exit(1);
 		}
-		i++;
 		if (str[i] == ',')
 			filter[(int)str[i]] -= 1;
+		i++;
 	}
 	color3 = ft_split(str, ',');
 	check_column_cnt(color3, 3);
