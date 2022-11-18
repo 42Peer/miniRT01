@@ -15,7 +15,8 @@
 /*
 *				mlx
 */
-int		key_hooking(int keycode, t_mlx *mlx);
+int		mlx_exit(t_mlx *mlx);
+int		mlx_esc_exit(int keycode, t_mlx *mlx);
 void	set_mlx(t_mlx *mlx);
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, t_color3 color);
 void	pixel_put(t_scene *scene);

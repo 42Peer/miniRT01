@@ -23,7 +23,8 @@ typedef int t_bool;
 # define TOP 1
 # define BOTTOM -1
 
-# define ESC 53
+# define ESC				53
+# define X_EVENT_KEY_EXIT	17
 
 typedef enum e_object_type 
 {

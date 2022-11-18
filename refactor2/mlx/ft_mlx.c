@@ -1,12 +1,19 @@
 #include "../include/minirt.h"
 
-int	key_hooking(int keycode, t_mlx *mlx)
+int	mlx_esc_exit(int keycode, t_mlx *mlx)
 {
 	if (keycode == ESC)
 	{
 		mlx_destroy_window(mlx->mlx, mlx->win);
 		exit(EXIT_SUCCESS);
 	}
+	return (0);
+}
+
+int	mlx_exit(t_mlx *mlx)
+{
+	mlx_destroy_window(mlx->mlx, mlx->win);
+	exit(EXIT_SUCCESS);
 	return (0);
 }
 
@@ -20,7 +27,8 @@ void	set_mlx(t_mlx *mlx)
 	mlx->win = mlx_new_window(mlx->mlx, mlx->width, mlx->height, "miniRT");
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel,
 		&mlx->line_length, &mlx->endian);
-	mlx_key_hook(mlx->win, key_hooking, mlx);
+	mlx_key_hook(mlx->win, mlx_esc_exit, mlx);
+	mlx_hook(mlx->win, X_EVENT_KEY_EXIT, 0, &mlx_exit, mlx);
 }
 
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, t_color3 color)
