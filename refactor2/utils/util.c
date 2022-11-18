@@ -2,8 +2,8 @@
 
 void	exit_with_error(char *msg)
 {
-	perror("Error\n");
-	perror(msg);
+	write(2, "Error\n", 6);
+	write(2, msg, ft_strlen(msg));
 	exit(EXIT_FAILURE);
 }
 

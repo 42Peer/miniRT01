@@ -23,6 +23,8 @@ typedef int t_bool;
 # define TOP 1
 # define BOTTOM -1
 
+# define ESC 53
+
 typedef enum e_object_type 
 {
 	SP,
@@ -41,6 +43,10 @@ typedef enum e_object_type
 
 # define KS 0.5
 # define KSN 1024
+
+# define DOUBLE_CHAR "0123456789."
+# define COLOR_CHAR "0123456789,,"
+# define VALID_CHAR "ACLsplcy0123456789.,- \n"
 
 struct s_vec3
 {

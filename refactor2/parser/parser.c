@@ -8,7 +8,6 @@ void object_parser(char **line, t_scene *scene)
 	{
 		data = ft_split(*line, ' ');
 		line++;
-
 		if (!ft_strcmp(data[0], "A"))
 			ambient(scene, data);
 		else if (!ft_strcmp(data[0], "L"))
@@ -37,6 +36,7 @@ char	**file_parser(char *filename)
 	raw_data = (char *)wrap_malloc(sizeof(char) * (count + 1));
 	read(fd, raw_data, count);
 	raw_data[count] = '\0';
+	validate_rt(raw_data);
 	close(fd);
 	line = ft_split(raw_data, '\n');
 	return (line);
@@ -51,6 +51,5 @@ t_scene	parse(char *filename)
 	scene.object_list = 0;
 	line = file_parser(filename);
 	object_parser(line, &scene);
-	printf_test(&scene);
 	return (scene);
 }

@@ -6,7 +6,7 @@
 #    By: jnam <jnam@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/18 13:50:56 by jnam             ###   ########.fr        #
+#    Updated: 2022/11/18 16:00:05 by jnam             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,8 @@ SRC = \
 		trace/hit_object.c \
 		trace/ray.c \
 		trace/phong_lighting.c \
+		mlx/ft_mlx.c \
+		validator/validator.c
 
 OBJ = $(SRC:.c=.o)
 

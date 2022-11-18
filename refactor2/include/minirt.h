@@ -4,7 +4,6 @@
 # include "structures.h"
 # include "wrap.h"
 # include "vector.h"
-# include "libft.h"
 # include "mlx.h"
 # include <limits.h>
 # include <stdlib.h>
@@ -12,6 +11,14 @@
 # include <unistd.h>
 # include <math.h>
 # include <stdio.h>
+
+/*
+*				mlx
+*/
+int		key_hooking(int keycode, t_mlx *mlx);
+void	set_mlx(t_mlx *mlx);
+void	my_mlx_pixel_put(t_mlx *data, int x, int y, t_color3 color);
+void	pixel_put(t_scene *scene);
 
 /*
 *				util
@@ -76,5 +83,11 @@ t_bool		in_shadow(t_scene *scene, t_vec3 light_vec);
 t_color3	get_diffuse(t_scene *scene, t_light *light, t_vec3 light_dir);
 t_color3	get_specular(t_scene *scene, t_light *light, t_vec3 light_dir);
 t_color3	point_light_get(t_scene *scene, t_light *light);
+
+/*
+*				validate
+*/
+void		validate_rt(char *str);
+
 
 #endif

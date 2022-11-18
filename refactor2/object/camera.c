@@ -23,7 +23,7 @@ void	camera(t_scene *scene, char **data)
 	degree = a_to_d(data[3]);
 	w = vunit(vmult_k(camera.camera_dir, -1));
 	if (vlength(vcross(vec3(0, 1, 0), w)) == 0)
-		u = vunit(vcross(vec3(0, 0, 1), w));
+		u = vunit(vcross(vec3(0, 0, -1), w));
 	else
 		u = vunit(vcross(vec3(0, 1, 0), w));
 	v = vmult_k(vcross(w, u), -1);
