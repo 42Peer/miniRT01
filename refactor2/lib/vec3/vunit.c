@@ -2,7 +2,7 @@
 
 t_vec3	vunit(t_vec3 vec)
 {
-	double	len = vlength(vec);
+	const double	len = vlength(vec);
 
 	if (len == 0)
 	{

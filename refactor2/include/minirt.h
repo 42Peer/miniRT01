@@ -5,6 +5,7 @@
 # include "wrap.h"
 # include "vector.h"
 # include "libft.h"
+# include "mlx.h"
 # include <limits.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -13,11 +14,27 @@
 # include <stdio.h>
 
 /*
-*				utils
+*				util
 */
 void		exit_with_error(char *msg);
 int			get_file_size(char *filename);
 void		free_split(char **data);
+
+/*
+*				util_libft
+*/
+size_t		ft_strlen(const char *s);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
+int			ft_atoi(const char *str);
+int			ft_strcmp(char *line, char *c);
+char		**ft_split(char const *s, char c);
+
+/*
+*				util_object
+*/
+t_vec3		str_to_vec3(char *s);
+double		a_to_d(const char *str);
+t_color3	parse_color(char *data);
 
 /*
 *				parser
@@ -26,12 +43,6 @@ t_scene		parse(char *filename);
 char		**file_parser(char *filename);
 void		object_parser(char **line, t_scene *scene);
 
-/*
-*				utils
-*/
-t_vec3		str_to_vec3(char *s);
-double		a_to_d(const char *str);
-t_color3	parse_color(char *data);
 
 /*
 *				object
