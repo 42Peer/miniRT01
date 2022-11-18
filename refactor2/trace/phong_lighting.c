@@ -21,7 +21,6 @@ t_bool	in_shadow(t_scene *scene, t_vec3 light_vec)
 {
 	t_ray			light_ray;
 	double			light_len;
-	t_hit_record	rec;
 
 	light_len = vlength(light_vec);
 	light_ray = ray(vplus(scene->rec.p,

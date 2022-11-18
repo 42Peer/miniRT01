@@ -6,7 +6,7 @@
 #    By: jnam <jnam@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/18 16:32:59 by jnam             ###   ########.fr        #
+#    Updated: 2022/11/18 17:03:14 by jnam             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME 	= miniRT
 
 CC		= cc
-CFLAGS	= # -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror #-g3 -fsanitize=address
 MFLAGS	= -framework OpenGL -framework AppKit
 
 MLX_DIR	= ./lib/libmlx
@@ -48,7 +48,12 @@ SRC = \
 		trace/ray.c \
 		trace/phong_lighting.c \
 		mlx/ft_mlx.c \
-		validator/validator.c
+		validator/validator.c \
+		validator/valid_check.c \
+		validator/valid_object.c \
+		validator/valid_check_cnt.c \
+		validator/valid_object_must.c \
+		validator/valid_util.c \
 
 OBJ = $(SRC:.c=.o)
 

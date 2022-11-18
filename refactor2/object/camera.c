@@ -22,10 +22,7 @@ void	camera(t_scene *scene, char **data)
 	camera.camera_dir = vunit(str_to_vec3(data[2]));
 	degree = a_to_d(data[3]);
 	w = vunit(vmult_k(camera.camera_dir, -1));
-	if (vlength(vcross(vec3(0, 1, 0), w)) == 0)
-		u = vunit(vcross(vec3(0, 0, -1), w));
-	else
-		u = vunit(vcross(vec3(0, 1, 0), w));
+	u = vunit(vcross(vec3(EPSILON, 1, 0), w));
 	v = vmult_k(vcross(w, u), -1);
 	camera.viewport_h = 2.0 * tan(degree / 360 * M_PI);
 	camera.viewport_w = camera.viewport_h * MLX_RATIO; 

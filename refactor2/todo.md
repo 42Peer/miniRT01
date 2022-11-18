@@ -6,7 +6,7 @@
 - [x] header 정리   
 - [x] leak check   
 - [ ] norm check   
-- [ ] camera up vector
+- [X] camera up vector
 - [x] validator   
 	- [x] .rt file type check  
 	- [x] normalized orientation vector size (0,0,0)   
@@ -19,4 +19,4 @@
 - [ ] light color  
 - [ ] cone -> validator 에서 cone error 안되게 처리 리
 - [ ] bump map && checker pattern  
-- [ ] specular (already done)  
+- [X] specular (already done)  
