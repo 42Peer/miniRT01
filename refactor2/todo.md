@@ -7,10 +7,10 @@
 - [ ] leak check   
 - [ ] norm check   
 - [ ] camera up vector
-- [ ] validator   
-	- [ ] .rt file type check  
-	- [ ] normalized orientation vector size (0,0,0)   
-	- [ ] light color => error   
+- [x] validator   
+	- [x] .rt file type check  
+	- [x] normalized orientation vector size (0,0,0)   
+	- [x] light color => error   
 - [ ] 오늘의 저녁 메뉴는?
 
 ---

@@ -34,6 +34,7 @@ size_t		ft_strlen(const char *s);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 int			ft_atoi(const char *str);
 int			ft_strcmp(char *line, char *c);
+char		*ft_strrchr(const char *s, int c);
 char		**ft_split(char const *s, char c);
 
 /*

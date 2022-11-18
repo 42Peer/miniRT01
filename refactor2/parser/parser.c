@@ -42,6 +42,15 @@ char	**file_parser(char *filename)
 	return (line);
 }
 
+void	check_file_extension(char *filename)
+{
+	char	*extension;
+
+	extension = ft_strrchr(filename, '.');
+	if (!extension || ft_strcmp(extension, ".rt"))
+		exit_with_error("Invalid file extension\n");
+}
+
 t_scene	parse(char *filename)
 {
 	t_scene	scene;
@@ -49,6 +58,7 @@ t_scene	parse(char *filename)
 
 	scene.light_list = 0;
 	scene.object_list = 0;
+	check_file_extension(filename);
 	line = file_parser(filename);
 	object_parser(line, &scene);
 	return (scene);

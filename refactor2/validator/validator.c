@@ -6,7 +6,7 @@
 /*   By: jnam <jnam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 01:44:16 by mher              #+#    #+#             */
-/*   Updated: 2022/11/18 16:17:16 by jnam             ###   ########.fr       */
+/*   Updated: 2022/11/18 16:25:04 by jnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,8 @@ void	check_object_C(char *str)
 	check_column_cnt(column, 4);
 	check_vec3(column[1]);
 	check_vec3(column[2]);
+	if (vlength(str_to_vec3(column[2])) == 0)
+		exit_with_error("invalid vector\n");
 	check_fov(column[3]);
 	check_cnt_C();
 	free_split(column);
@@ -190,10 +192,9 @@ void	check_object_L(char *str)
 
 	column = ft_split(str, ' ');
 	check_object_position(&str[1]);
-	check_column_cnt(column, 4);
+	check_column_cnt(column, 3);
 	check_vec3(column[1]);
 	check_double(column[2], DOUBLE_CHAR);
-	check_color3(column[3], COLOR_CHAR);
 	check_cnt_L();
 	free_split(column);
 }

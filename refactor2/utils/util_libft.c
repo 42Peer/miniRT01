@@ -67,3 +67,21 @@ int	ft_strcmp(char *line, char *c)
 		return (1);
 	return (0);
 }
+
+char	*ft_strrchr(const char *s, int c)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = (char *)s;
+	while (str[i])
+		i++;
+	while (i >= 0)
+	{
+		if (str[i] == c)
+			return (&str[i]);
+		i--;
+	}
+	return (NULL);
+}
