@@ -6,11 +6,30 @@
 /*   By: jnam <jnam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 01:44:16 by mher              #+#    #+#             */
-/*   Updated: 2022/11/18 16:25:04 by jnam             ###   ########.fr       */
+/*   Updated: 2022/11/18 16:44:04 by jnam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
+
+void	set_filter(int *filter, char* valid_char)
+{
+	const int	v_len = ft_strlen(valid_char);
+	int			i;
+
+	i = 0;
+	while (i < 128)
+	{
+		filter[i] = 0;
+		i++;
+	}
+	i = 0;
+	while (i < v_len)
+	{
+		filter[(int)valid_char[i]] += 1;
+		i++;
+	}
+}
 
 int	check_cnt_A(void)
 {
@@ -35,17 +54,10 @@ int	check_cnt_L(void)
 
 void	check_object_position(char *str)
 {
-	char	*valid_char = "0123456789.,- ";
-	int		v_len = ft_strlen(valid_char);
-	int		filter[128] = {0};
-	int		i;
+	const char	*valid_char = "0123456789.,- ";
+	int		filter[128];
 
-	i = 0;
-	while (i < v_len)
-	{
-		filter[(int)valid_char[i]] = 1;
-		i++;
-	}
+	set_filter(filter, valid_char);
 	while (*str)
 	{
 		if (filter[(int)*str] == 0)
@@ -65,28 +77,9 @@ void	check_column_cnt(char **column, int column_cnt)
 		exit_with_error("invalid .rt format\n");
 }
 
-void	set_filter(int *filter, char* valid_char)
-{
-	const int	v_len = ft_strlen(valid_char);
-	int			i;
-
-	i = 0;
-	while (i < 128)
-	{
-		filter[i] = 0;
-		i++;
-	}
-	i = 0;
-	while (i < v_len)
-	{
-		filter[(int)valid_char[i]] += 1;
-		i++;
-	}
-}
 
 void	check_double(char *str, char *valid_char)
 {
-	int		v_len = ft_strlen(valid_char);
 	int		filter[128];
 
 	set_filter(filter, valid_char);

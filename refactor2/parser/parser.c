@@ -39,6 +39,7 @@ char	**file_parser(char *filename)
 	validate_rt(raw_data);
 	close(fd);
 	line = ft_split(raw_data, '\n');
+	free(raw_data);
 	return (line);
 }
 

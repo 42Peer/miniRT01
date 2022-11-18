@@ -4,7 +4,7 @@
 - [x] ESC 누르면 종료되게  
 - [x] libft 정리   
 - [x] header 정리   
-- [ ] leak check   
+- [x] leak check   
 - [ ] norm check   
 - [ ] camera up vector
 - [x] validator   
