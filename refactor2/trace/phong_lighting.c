@@ -14,7 +14,7 @@ t_color3	phong_lighting(t_scene *scene)
 									point_light_get(scene, lights->element));
 		lights = lights->next;
 	}
-	return (vmin(vmult(light_color, scene->rec.color), color3(0, 0, 0)));
+	return (vmin(vmult(light_color, scene->rec.color), color3(1, 1, 1)));
 }
 
 t_bool	in_shadow(t_scene *scene, t_vec3 light_vec)
