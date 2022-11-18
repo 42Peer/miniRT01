@@ -164,6 +164,6 @@ t_scene	parse(char *filename)
 	scene.object_list = 0;
 	line = file_parser(filename);
 	object_parser(line, &scene);
-	printf_test(&scene);
+	// printf_test(&scene);
 	return (scene);
 }

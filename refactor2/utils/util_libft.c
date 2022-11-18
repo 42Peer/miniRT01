@@ -60,10 +60,10 @@ int	ft_strcmp(char *line, char *c)
 	while (line[i] && c[i])
 	{
 		if (line[i] != c[i])
-			return (0);
+			return (1);
 		i++;
 	}
 	if (line[i] != c[i])
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
