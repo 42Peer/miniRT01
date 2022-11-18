@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: jnam <jnam@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/16 16:08:45 by jujeon           ###   ########seoul.kr   #
+#    Updated: 2022/11/18 13:25:06 by jnam             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC_DIR = ./
 SRC = \
 		main.c	\
 		parser/parser.c \
+		utils/utils.c \
 		object/ambient.c \
 		object/camera.c \
 		object/cylinder.c \

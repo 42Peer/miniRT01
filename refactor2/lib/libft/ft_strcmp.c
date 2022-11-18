@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnam <jnam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mher <mher@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 20:10:33 by mher              #+#    #+#             */
-/*   Updated: 2022/11/18 12:54:54 by jnam             ###   ########.fr       */
+/*   Created: 2021/11/16 15:54:14 by mher              #+#    #+#             */
+/*   Updated: 2021/11/17 11:43:13 by mher             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strcmp(char *line, char *c)
 {
-	unsigned char	*t1;
-	unsigned char	*t2;
+	int	i;
 
-	t1 = (unsigned char *)s1;
-	t2 = (unsigned char *)s2;
-	while (n-- > 0)
+	i = 0;
+	while (line[i] && c[i])
 	{
-		if (*t1 != *t2 || !*t1 || !*t2)
-			return (*t1 - *t2);
-		++t1;
-		++t2;
+		if (line[i] != c[i])
+			return (0);
+		i++;
 	}
-	return (0);
+	if (line[i] != c[i])
+		return (0);
+	return (1);
 }

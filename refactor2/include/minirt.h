@@ -1,18 +1,23 @@
 #ifndef MINIRT_H
-#define MINIRT_H
+# define MINIRT_H
 
-#include "structures.h"
-#include "wrap.h"
-#include "vector.h"
-#include "libft.h"
-#include <limits.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <math.h>
-#include <stdio.h>
+# include "structures.h"
+# include "wrap.h"
+# include "vector.h"
+# include "libft.h"
+# include <limits.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <math.h>
+# include <stdio.h>
 
+/*
+*				utils
+*/
+void		exit_with_error(char *msg);
 int			get_file_size(char *filename);
+void		free_split(char **data);
 
 /*
 *				parser
@@ -22,7 +27,7 @@ char		**file_parser(char *filename);
 void		object_parser(char **line, t_scene *scene);
 
 /*
-*				object_utils
+*				utils
 */
 t_vec3		str_to_vec3(char *s);
 double		a_to_d(const char *str);

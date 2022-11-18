@@ -21,22 +21,19 @@ t_bool	set_root(double a, double half_b, double c, t_hit_record *rec)
 	return (TRUE);
 }
 
-t_bool hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
+t_bool	hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 {
-	t_sphere *sp;
-
-	t_vec3  oc; //방향벡터로 나타낸 구의 중심, oc = origin - center
-	//a, b, c는 각각 t에 관한 2차 방정식의 계수
-	double  a; // D dot D
-	double  half_b;
-	double  c; // (O - C) dot (O - C) - R^2
+	t_sphere	*sp;
+	t_vec3		oc;
+	double		a;
+	double		half_b;
+	double		c;
 
 	sp = sp_obj->element;
 	oc = vminus(ray->orig, sp->center);
 	a = vlength2(ray->dir);
 	half_b = vdot(oc, ray->dir);
 	c = vlength2(oc) - sp->radius_pow_2;
-
 	if (!set_root(a, half_b, c, rec))
 		return (FALSE);
 	rec->p = ray_at(ray, rec->t);
@@ -49,9 +46,9 @@ t_bool hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 t_bool	hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
 {
 	t_plane	*pl;
-	double denominator;
-	double numerator;
-	double root;
+	double	denominator;
+	double	numerator;
+	double	root;
 
 	pl = pl_obj->element;
 	denominator = vdot(pl->normal, ray->dir);
@@ -69,23 +66,24 @@ t_bool	hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
 	return (TRUE);
 }
 
-t_bool hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
+t_bool	hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 {
-	t_cylinder const *cy = cy_obj->element;
-	const t_vec3  uo_c = vcross(ray->dir, cy->normal);
-	const t_vec3  po_c = vcross(vminus(ray->orig, cy->point), cy->normal);
-	t_vec3 cp;
+	const t_cylinder	*cy = cy_obj->element;
+	const t_vec3		uo_c = vcross(ray->dir, cy->normal);
+	const t_vec3		po_c = vcross(vminus(ray->orig, cy->point), cy->normal);
+	t_vec3				cp;
 
 	if (!set_root(
-		vlength2(uo_c),
-		vdot(uo_c, po_c),
-		vlength2(po_c) - cy->radius * cy->radius,
-		rec))
+			vlength2(uo_c),
+			vdot(uo_c, po_c),
+			vlength2(po_c) - cy->radius * cy->radius,
+			rec))
 		return (FALSE);
 	rec->p = ray_at(ray, rec->t);
 	cp = vminus(rec->p, cy->point);
-	 if (fabs(vdot(cp, cy->normal)) > cy->height / 2)
-		return (hit_circle(cy, ray, rec, TOP) || hit_circle(cy, ray, rec, BOTTOM));
+	if (fabs(vdot(cp, cy->normal)) > cy->height / 2)
+		return (hit_circle(cy, ray, rec, TOP)
+				|| hit_circle(cy, ray, rec, BOTTOM));
 	rec->normal = vunit(vminus(cp , vmult_k(cy->normal, vdot(cp, cy->normal))));
 	rec->color = cy->color;
 	set_face_normal(ray, rec);
@@ -94,9 +92,9 @@ t_bool hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 
 t_bool	hit_circle(t_cylinder *cy, t_ray *ray, t_hit_record *rec, int position)
 {
-	double 		denominator;
-	double 		numerator;
-	double 		root;
+	double		denominator;
+	double		numerator;
+	double		root;
 	t_vec3		normal;
 	t_point3	center;
 

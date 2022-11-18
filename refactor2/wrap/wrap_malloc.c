@@ -1,14 +1,11 @@
 #include "../include/wrap.h"
 
-void *wrap_malloc(size_t size)
+void	*wrap_malloc(size_t size)
 {
-	void *ret;
+	void	*ret;
 
 	ret = malloc(size);
 	if (ret == NULL)
-	{
-		perror("malloc fail");
-		exit (1);
-	}
+		exit_with_error("memory allocation failed\n");
 	return (ret);
 }

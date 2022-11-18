@@ -18,6 +18,4 @@ input 숫자가 유효한지 검사
 camera
 	normalized oriented vector -> 0,0,0 이면 안됨
 
-left_top 수정 필요
-
 1. light_color 멘데, 보너스 구분
