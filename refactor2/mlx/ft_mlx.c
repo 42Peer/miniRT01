@@ -4,6 +4,7 @@ int	key_hooking(int keycode, t_mlx *mlx)
 {
 	if (keycode == ESC)
 	{
+		system("leaks miniRT");
 		mlx_destroy_window(mlx->mlx, mlx->win);
 		exit(0);
 	}

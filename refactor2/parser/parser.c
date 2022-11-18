@@ -61,5 +61,6 @@ t_scene	parse(char *filename)
 	check_file_extension(filename);
 	line = file_parser(filename);
 	object_parser(line, &scene);
+	free_split(line);
 	return (scene);
 }
