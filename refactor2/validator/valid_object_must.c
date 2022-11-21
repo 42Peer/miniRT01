@@ -1,13 +1,13 @@
 #include "../include/minirt.h"
 
-void	check_fov(char *str)
+void	check_theta(char *str)
 {
-	double	fov;
+	double	theta;
 
 	check_double(str, DOUBLE_CHAR);
-	fov = a_to_d(str);
-	if (fov < 0 || fov > 180)
-		exit_with_error("fov must be 0 <= fov <= 180\n");
+	theta = a_to_d(str);
+	if (theta < 0 || theta > 180)
+		exit_with_error("theta must be 0 <= theta <= 180\n");
 }
 
 void	check_object_ambient(char *str)
@@ -34,7 +34,7 @@ void	check_object_camera(char *str)
 	check_vec3(column[2]);
 	if (vlength(str_to_vec3(column[2])) == 0)
 		exit_with_error("invalid vector\n");
-	check_fov(column[3]);
+	check_theta(column[3]);
 	check_cnt_camera();
 	free_split(column);
 }

@@ -6,7 +6,7 @@
 #    By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/21 13:52:27 by jujeon           ###   ########seoul.kr   #
+#    Updated: 2022/11/21 20:29:21 by jujeon           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ INCLUDE = -I./include
 SRC_DIR = ./
 
 BASE :=  main.c \
-		parser/parser.c \
 		utils/util.c \
 		utils/util_object.c \
 		utils/util_libft.c \
@@ -41,7 +40,6 @@ BASE :=  main.c \
 		object/sphere.c \
 		wrap/wrap_open.c \
 		wrap/wrap_malloc.c \
-		trace/hit.c \
 		trace/hit_object.c \
 		trace/ray.c \
 		mlx/ft_mlx.c \
@@ -52,16 +50,23 @@ BASE :=  main.c \
 
 BNS = \
 	$(BASE) \
+	parser/parser_bonus.c \
 	object/light_bonus.c \
+	object/cone_bonus.c \
+	validator/valid_object_bonus.c \
 	validator/valid_object_must_bonus.c \
 	validator/validator_bonus.c \
+	trace/hit_bonus.c \
+	trace/hit_object_bonus.c \
 	trace/phong_lighting_bonus.c \
 
 SRC = \
 	$(BASE) \
+	parser/parser.c \
 	object/light.c \
 	validator/valid_object_must.c \
 	validator/validator.c \
+	trace/hit.c \
 	trace/phong_lighting.c \
 
 OBJ = $(SRC:.c=.o)

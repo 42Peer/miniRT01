@@ -1,6 +1,6 @@
 #include "../include/minirt.h"
 
-void	check_fov(char *str)
+void	check_theta(char *str)
 {
 	double	fov;
 
@@ -34,7 +34,7 @@ void	check_object_camera(char *str)
 	check_vec3(column[2]);
 	if (vlength(str_to_vec3(column[2])) == 0)
 		exit_with_error("invalid vector\n");
-	check_fov(column[3]);
+	check_theta(column[3]);
 	check_cnt_camera();
 	free_split(column);
 }

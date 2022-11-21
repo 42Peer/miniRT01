@@ -15,6 +15,7 @@ typedef struct s_scene		t_scene;
 typedef struct s_plane		t_plane;
 typedef struct s_cylinder	t_cylinder;
 typedef struct s_ambient	t_ambient;
+typedef struct s_cone		t_cone;
 
 typedef int					t_bool;
 
@@ -32,12 +33,13 @@ typedef enum e_object_type
 	SP,
 	PL,
 	CY,
+	CO,
 	LIGHT_POINT,
 	AMBIENT,
 }	t_object_type;
 
 # define EPSILON 1e-6
-# define LUMEN 3
+# define LUMEN 2
 
 # define MLX_WIDTH	800
 # define MLX_HEIGHT	600
@@ -48,7 +50,6 @@ typedef enum e_object_type
 
 # define DOUBLE_CHAR "0123456789."
 # define COLOR_CHAR "0123456789,,"
-# define VALID_CHAR "ACLsplcy0123456789.,- \n"
 
 struct s_vec3
 {
@@ -127,6 +128,15 @@ struct s_light
 	t_point3	origin;
 	t_color3	light_color;
 	double		bright_ratio;
+};
+
+struct s_cone
+{
+	t_point3	point;
+	t_vec3		normal;
+	t_color3	color;
+	double		theta;
+	double		height;
 };
 
 struct s_mlx

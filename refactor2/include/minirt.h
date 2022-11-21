@@ -44,6 +44,8 @@ char		**ft_split(char const *s, char c);
 t_vec3		str_to_vec3(char *s);
 double		a_to_d(const char *str);
 t_color3	parse_color(char *data);
+double		minf(double a, double b);
+double		maxf(double a, double b);
 
 /*
 *				parser
@@ -63,6 +65,7 @@ void		cylinder(t_scene *scene, char **data);
 void		light(t_scene *scene, char **data);
 void		ambient(t_scene *scene, char **data);
 void		camera(t_scene *scene, char **data);
+void		cone(t_scene *scene, char **data);
 
 /*
 *				trace
@@ -80,6 +83,7 @@ t_bool		hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec);
 t_bool		hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec);
 t_bool		hit_circle( \
 			const t_cylinder *cy, t_ray *ray, t_hit_record *rec, int position);
+t_bool		hit_cone(t_object *cone_obj, t_ray *ray, t_hit_record *rec);
 t_color3	phong_lighting(t_scene *scene);
 t_bool		in_shadow(t_scene *scene, t_vec3 light_vec);
 t_color3	get_diffuse(t_scene *scene, t_light *light, t_vec3 light_dir);
@@ -104,9 +108,10 @@ void		check_object_cy(char *str);
 int			check_cnt_ambient(void);
 int			check_cnt_camera(void);
 int			check_cnt_light(void);
-void		check_fov(char *str);
+void		check_theta(char *str);
 void		check_object_ambient(char *str);
 void		check_object_camera(char *str);
 void		check_object_light(char *str);
+void		check_object_co(char *str);
 
 #endif

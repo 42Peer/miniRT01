@@ -6,6 +6,10 @@
 		"random": "c",
 		"structures.h": "c",
 		"limits.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 01:44:16 by mher              #+#    #+#             */
-/*   Updated: 2022/11/21 14:46:44 by jujeon           ###   ########seoul.kr  */
+/*   Updated: 2022/11/21 20:21:35 by jujeon           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	parse_object(char *str)
 
 void	validate_rt(char *str)
 {
-	check_invalid_char(str, VALID_CHAR);
+	check_invalid_char(str, "ACLsplcy0123456789.,- \n");
 	parse_object(str);
 	if (check_cnt_ambient() != 1
 		|| check_cnt_camera() != 1

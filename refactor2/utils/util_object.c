@@ -51,3 +51,17 @@ double	a_to_d(const char *str)
 	}
 	return (ret * sign);
 }
+
+double	minf(double a, double b)
+{
+	if (a > b)
+		return (b);
+	return (a);
+}
+
+double	maxf(double a, double b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}

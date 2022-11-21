@@ -10,10 +10,10 @@ t_bool	set_root(double a, double half_b, double c, t_hit_record *rec)
 	if (discriminant < 0)
 		return (FALSE);
 	sqrtd = sqrt(discriminant);
-	root = (-half_b - sqrtd) / a;
+	root = minf((-half_b - sqrtd) / a, (-half_b + sqrtd) / a);
 	if (root < rec->tmin || rec->tmax < root)
 	{
-		root = (-half_b + sqrtd) / a;
+		root = maxf((-half_b - sqrtd) / a, (-half_b + sqrtd) / a);
 		if (root < rec->tmin || rec->tmax < root)
 			return (FALSE);
 	}
