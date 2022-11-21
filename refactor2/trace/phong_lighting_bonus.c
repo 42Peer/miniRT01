@@ -71,8 +71,7 @@ t_color3	point_light_get(t_scene *scene, t_light *light)
 	if (in_shadow(scene, light_vec))
 		return (color3(0,0,0));
 	diffuse = get_diffuse(scene, light, light_dir);
-	//specular = get_specular(scene, light, light_dir);
-	specular = vec3(0,0,0);
+	specular = get_specular(scene, light, light_dir);
 	brightness = light->bright_ratio * LUMEN;
 	return (vmult_k(vplus(diffuse, specular), brightness));
 }

@@ -1,6 +1,7 @@
 #include "./include/minirt.h"
 #include "include/structures.h"
 #include "include/vector.h"
+#include "lib/vec3/vector.h"
 
 typedef struct s_cone
 {
@@ -10,6 +11,27 @@ typedef struct s_cone
 	double		theta;
 	//double		height;
 }	t_cone;
+
+t_bool	set_root2(double a, double half_b, double c, t_hit_record *rec)
+{
+	double	root;
+	double	discriminant;
+	double	sqrtd;
+
+	discriminant = half_b * half_b - a * c;
+	if (discriminant < 0)
+		return (FALSE);
+	sqrtd = sqrt(discriminant);
+	root = (-half_b - sqrtd) / a;
+	//if (root < rec->tmin || rec->tmax < root)
+	//{
+		root = (-half_b + sqrtd) / a;
+		if (root < rec->tmin || rec->tmax < root)
+			return (FALSE);
+	//}
+	rec->t = root;
+	return (TRUE);
+}
 
 t_bool	hit_cone(t_object *cone_obj, t_ray *ray, t_hit_record *rec)
 {
@@ -24,7 +46,7 @@ t_bool	hit_cone(t_object *cone_obj, t_ray *ray, t_hit_record *rec)
 	double	half_b = dv * ce_v - vdot(ce, ray->dir) * cos2;
 	double	c = ce_v * ce_v - vdot(ce, ce) * cos2;
 
-	if (!set_root(
+	if (!set_root2(
 			a,
 			half_b,
 			c,
@@ -36,18 +58,18 @@ t_bool	hit_cone(t_object *cone_obj, t_ray *ray, t_hit_record *rec)
 	//if (fabs(vdot(cp, cone->o)) > cone->height / 2)
 	//	return (hit_circle(cone, ray, rec, TOP)
 	//		|| hit_circle(cone, ray, rec, BOTTOM));
-	//rec->normal = vunit(vminus(cp, vmult_k(cone->o, vdot(cp, cone->o))));
-	rec->normal = vunit(
-		vminus(
-			rec->p, 
-			vplus(
-				cone->center, 
-				vmult_k(
-					cone->o, 
-					cp_len * acos(cone->theta)))));
+rec->normal = vunit(
+	vminus(
+		rec->p, 
+		vplus(
+			cone->center, 
+			vmult_k(
+				cone->o, 
+				cp_len * acos(cone->theta)))));
+//rec->normal = vunit(vminus(ray->orig, rec->p));
 	
-	//(void)cp_len;
-	//rec->normal = vec3(0,0,1);
+	(void)cp_len;
+	//rec->normal = vmult_k(rec->normal, -1);
 	rec->color = cone->color;
 	//set_face_normal(ray, rec);
 	return (TRUE);
@@ -64,7 +86,7 @@ int	main(int argc, char **argv)
 
 t_cone *cone = malloc(sizeof(t_cone));
 cone->center = vec3(0,5,0);
-cone->o = vec3(0,1,0);
+cone->o = vec3(0,-1,0);
 cone->color = color3(0,1,0);
 cone->theta = M_PI / 6;
 //cone->height = 10;
