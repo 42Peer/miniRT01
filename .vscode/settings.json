@@ -1,0 +1,11 @@
+{
+	"files.associations": {
+		"*.html": "html",
+		"minirt.h": "c",
+		"wrap.h": "c",
+		"random": "c",
+		"structures.h": "c",
+		"limits.h": "c",
+		"stdlib.h": "c"
+	}
+}
