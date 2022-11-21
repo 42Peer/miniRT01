@@ -6,7 +6,7 @@
 #    By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/21 13:46:17 by jujeon           ###   ########seoul.kr   #
+#    Updated: 2022/11/21 13:52:27 by jujeon           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ BASE :=  main.c \
 		trace/hit_object.c \
 		trace/ray.c \
 		mlx/ft_mlx.c \
-		validator/validator.c \
 		validator/valid_check.c \
 		validator/valid_object.c \
 		validator/valid_check_cnt.c \
@@ -67,7 +66,7 @@ SRC = \
 
 OBJ = $(SRC:.c=.o)
 
-OBJ_BNS = $(SRC:.c=.o)
+OBJ_BNS = $(BNS:.c=.o)
 
 all: $(NAME)
 
