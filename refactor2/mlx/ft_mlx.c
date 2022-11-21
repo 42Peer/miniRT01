@@ -41,6 +41,11 @@ void	my_mlx_pixel_put(t_mlx *data, int x, int y, t_color3 color)
 		| (int)(color.z * 255);
 }
 
+static void f()
+{
+	;
+}
+
 void	pixel_put(t_scene *scene)
 {
 	t_color3	pixel_color;
@@ -55,6 +60,8 @@ void	pixel_put(t_scene *scene)
 		i = 0;
 		while (i < scene->mlx.width)
 		{
+			if (i == 400 && j == 300)
+				f();
 			u = (double)i / (scene->mlx.width - 1);
 			v = (double)j / (scene->mlx.height - 1);
 			scene->ray = ray_primary(&(scene->camera), u, v);

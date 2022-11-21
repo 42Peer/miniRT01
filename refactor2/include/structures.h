@@ -31,12 +31,15 @@ typedef enum e_object_type
 	SP,
 	PL,
 	CY,
+	CO,
 	LIGHT_POINT,
 	AMBIENT,
 }	t_object_type;
 
+t_bool	hit_cone(t_object *cone_obj, t_ray *ray, t_hit_record *rec);
+
 # define EPSILON 1e-6
-# define LUMEN 3
+# define LUMEN 2
 
 # define MLX_WIDTH	800
 # define MLX_HEIGHT	600

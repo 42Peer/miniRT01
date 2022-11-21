@@ -21,13 +21,14 @@ t_bool	in_shadow(t_scene *scene, t_vec3 light_vec)
 {
 	t_ray			light_ray;
 	double			light_len;
+	t_hit_record	rec;
 
 	light_len = vlength(light_vec);
 	light_ray = ray(vplus(scene->rec.p,
 					vmult_k(scene->rec.normal, EPSILON)), light_vec);
-	scene->rec.tmin = 0;
-	scene->rec.tmax = light_len;
-	if (hit(scene->object_list, &light_ray, &(scene->rec)))
+	rec.tmin = 0;
+	rec.tmax = light_len;
+	if (hit(scene->object_list, &light_ray, &rec))
 		return (TRUE);
 	return (FALSE);
 }
@@ -70,7 +71,8 @@ t_color3	point_light_get(t_scene *scene, t_light *light)
 	if (in_shadow(scene, light_vec))
 		return (color3(0,0,0));
 	diffuse = get_diffuse(scene, light, light_dir);
-	specular = get_specular(scene, light, light_dir);
+	//specular = get_specular(scene, light, light_dir);
+	specular = vec3(0,0,0);
 	brightness = light->bright_ratio * LUMEN;
 	return (vmult_k(vplus(diffuse, specular), brightness));
 }
