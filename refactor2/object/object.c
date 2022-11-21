@@ -7,7 +7,7 @@ void	oadd(t_object **list, t_object *new_obj)
 	if (*list == NULL)
 	{
 		*list = new_obj;
-		return;
+		return ;
 	}
 	cur = *list;
 	while (cur->next)

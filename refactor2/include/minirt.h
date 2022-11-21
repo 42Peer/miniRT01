@@ -15,11 +15,11 @@
 /*
 *				mlx
 */
-int		mlx_exit(t_mlx *mlx);
-int		mlx_esc_exit(int keycode, t_mlx *mlx);
-void	set_mlx(t_mlx *mlx);
-void	my_mlx_pixel_put(t_mlx *data, int x, int y, t_color3 color);
-void	pixel_put(t_scene *scene);
+int			mlx_exit(t_mlx *mlx);
+int			mlx_esc_exit(int keycode, t_mlx *mlx);
+void		set_mlx(t_mlx *mlx);
+void		my_mlx_pixel_put(t_mlx *data, int x, int y, t_color3 color);
+void		pixel_put(t_scene *scene);
 
 /*
 *				util
@@ -52,7 +52,6 @@ t_scene		parse(char *filename);
 char		**file_parser(char *filename);
 void		object_parser(char **line, t_scene *scene);
 
-
 /*
 *				object
 */
@@ -79,7 +78,8 @@ t_bool		set_root(double a, double half_b, double c, t_hit_record *rec);
 t_bool		hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec);
 t_bool		hit_plane(t_object *pl_obj, t_ray *ray, t_hit_record *rec);
 t_bool		hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec);
-t_bool		hit_circle(const t_cylinder *cy, t_ray *ray, t_hit_record *rec, int position);
+t_bool		hit_circle( \
+			const t_cylinder *cy, t_ray *ray, t_hit_record *rec, int position);
 t_color3	phong_lighting(t_scene *scene);
 t_bool		in_shadow(t_scene *scene, t_vec3 light_vec);
 t_color3	get_diffuse(t_scene *scene, t_light *light, t_vec3 light_dir);
@@ -97,16 +97,16 @@ void		check_column_cnt(char **column, int column_cnt);
 void		check_double(char *str, char *valid_char);
 void		check_color3(char *str, char *valid_char);
 void		check_vec3(char *str);
-void		set_filter(int *filter, const char* valid_char);
+void		set_filter(int *filter, const char *valid_char);
 void		check_object_sp(char *str);
 void		check_object_pl(char *str);
 void		check_object_cy(char *str);
-int			check_cnt_A(void);
-int			check_cnt_C(void);
-int			check_cnt_L(void);
+int			check_cnt_ambient(void);
+int			check_cnt_camera(void);
+int			check_cnt_light(void);
 void		check_fov(char *str);
-void		check_object_A(char *str);
-void		check_object_C(char *str);
-void		check_object_L(char *str);
+void		check_object_ambient(char *str);
+void		check_object_camera(char *str);
+void		check_object_light(char *str);
 
 #endif

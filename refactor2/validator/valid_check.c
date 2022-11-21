@@ -3,7 +3,7 @@
 void	check_object_position(char *str)
 {
 	const char	*valid_char = "0123456789.,- ";
-	int		filter[128];
+	int			filter[128];
 
 	set_filter(filter, valid_char);
 	while (*str)
@@ -24,7 +24,6 @@ void	check_column_cnt(char **column, int column_cnt)
 	if (cnt != column_cnt)
 		exit_with_error("invalid .rt format\n");
 }
-
 
 void	check_double(char *str, char *valid_char)
 {

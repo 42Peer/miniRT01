@@ -25,7 +25,7 @@ void	set_mlx(t_mlx *mlx)
 	mlx->mlx = mlx_init();
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	mlx->win = mlx_new_window(mlx->mlx, mlx->width, mlx->height, "miniRT");
-	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel,
+	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, \
 		&mlx->line_length, &mlx->endian);
 	mlx_key_hook(mlx->win, mlx_esc_exit, mlx);
 	mlx_hook(mlx->win, X_EVENT_KEY_EXIT, 0, &mlx_exit, mlx);
@@ -33,11 +33,11 @@ void	set_mlx(t_mlx *mlx)
 
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, t_color3 color)
 {
-	char *dst;
+	char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = (int)(color.x * 255) << 16
-		| (int)(color.y * 255) << 8 
+	*(unsigned int *)dst = (int)(color.x * 255) << 16 \
+		| (int)(color.y * 255) << 8 \
 		| (int)(color.z * 255);
 }
 
@@ -50,7 +50,7 @@ void	pixel_put(t_scene *scene)
 	double		v;
 
 	j = 0;
- 	while (j < scene->mlx.height)
+	while (j < scene->mlx.height)
 	{
 		i = 0;
 		while (i < scene->mlx.width)

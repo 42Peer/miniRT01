@@ -31,7 +31,7 @@ t_ray	ray_primary(t_camera *cam, double u, double v)
 	t_ray	ray;
 
 	ray.orig = cam->orig;
-	ray.dir = vunit(vminus(vplus(vplus(cam->left_top,
+	ray.dir = vunit(vminus(vplus(vplus(cam->left_top, \
 		vmult_k(cam->horizontal, u)), vmult_k(cam->vertical, v)), cam->orig));
 	return (ray);
 }

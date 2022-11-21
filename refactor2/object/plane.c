@@ -2,7 +2,7 @@
 
 void	plane(t_scene *scene, char **data)
 {
-	t_plane *plane;
+	t_plane	*plane;
 
 	plane = wrap_malloc(sizeof(t_plane));
 	plane->center = str_to_vec3(data[1]);

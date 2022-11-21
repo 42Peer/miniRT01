@@ -34,7 +34,6 @@ void	printf_light(t_light light)
 	printf("\n");
 }
 
-
 void	printf_cylinder(t_cylinder cylinder)
 {
 	printf("[cylinder]\n");

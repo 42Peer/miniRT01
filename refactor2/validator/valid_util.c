@@ -1,6 +1,6 @@
 #include "../include/minirt.h"
 
-void	set_filter(int *filter, const char* valid_char)
+void	set_filter(int *filter, const char *valid_char)
 {
 	const int	v_len = ft_strlen(valid_char);
 	int			i;

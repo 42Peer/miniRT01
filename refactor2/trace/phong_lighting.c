@@ -7,10 +7,10 @@ t_color3	phong_lighting(t_scene *scene)
 
 	light_color = vmult_k(scene->ambient.color, scene->ambient.ambient);
 	lights = scene->light_list;
-	while (lights) 
+	while (lights)
 	{
-		if(lights->type == LIGHT_POINT)
-			light_color = vplus(light_color,
+		if (lights->type == LIGHT_POINT)
+			light_color = vplus(light_color, \
 									point_light_get(scene, lights->element));
 		lights = lights->next;
 	}
@@ -21,13 +21,14 @@ t_bool	in_shadow(t_scene *scene, t_vec3 light_vec)
 {
 	t_ray			light_ray;
 	double			light_len;
+	t_hit_record	tmp_rec;
 
 	light_len = vlength(light_vec);
-	light_ray = ray(vplus(scene->rec.p,
+	light_ray = ray(vplus(scene->rec.p, \
 					vmult_k(scene->rec.normal, EPSILON)), light_vec);
-	scene->rec.tmin = 0;
-	scene->rec.tmax = light_len;
-	if (hit(scene->object_list, &light_ray, &(scene->rec)))
+	tmp_rec.tmin = 0;
+	tmp_rec.tmax = light_len;
+	if (hit(scene->object_list, &light_ray, &tmp_rec))
 		return (TRUE);
 	return (FALSE);
 }
@@ -48,9 +49,9 @@ t_color3	point_light_get(t_scene *scene, t_light *light)
 	double		brightness;
 
 	light_vec = vminus(light->origin, scene->rec.p);
-	light_dir = vunit(light_vec); 
+	light_dir = vunit(light_vec);
 	if (in_shadow(scene, light_vec))
-		return (color3(0,0,0));
+		return (color3(0, 0, 0));
 	diffuse = get_diffuse(scene, light, light_dir);
 	brightness = light->bright_ratio * LUMEN;
 	return (vmult_k(diffuse, brightness));

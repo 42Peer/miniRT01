@@ -1,8 +1,8 @@
 #include "../include/minirt.h"
 
-void object_parser(char **line, t_scene *scene)
+void	object_parser(char **line, t_scene *scene)
 {
-	char **data;
+	char	**data;
 
 	while (*line)
 	{

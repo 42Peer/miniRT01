@@ -10,7 +10,7 @@ void	check_fov(char *str)
 		exit_with_error("fov must be 0 <= fov <= 180\n");
 }
 
-void	check_object_A(char *str)
+void	check_object_ambient(char *str)
 {
 	char	**column;
 
@@ -19,11 +19,11 @@ void	check_object_A(char *str)
 	check_column_cnt(column, 3);
 	check_double(column[1], DOUBLE_CHAR);
 	check_color3(column[2], COLOR_CHAR);
-	check_cnt_A();
+	check_cnt_ambient();
 	free_split(column);
 }
 
-void	check_object_C(char *str)
+void	check_object_camera(char *str)
 {
 	char	**column;
 
@@ -35,11 +35,11 @@ void	check_object_C(char *str)
 	if (vlength(str_to_vec3(column[2])) == 0)
 		exit_with_error("invalid vector\n");
 	check_fov(column[3]);
-	check_cnt_C();
+	check_cnt_camera();
 	free_split(column);
 }
 
-void	check_object_L(char *str)
+void	check_object_light(char *str)
 {
 	char	**column;
 
@@ -49,6 +49,6 @@ void	check_object_L(char *str)
 	check_vec3(column[1]);
 	check_double(column[2], DOUBLE_CHAR);
 	check_color3(column[3], COLOR_CHAR);
-	check_cnt_L();
+	check_cnt_light();
 	free_split(column);
 }

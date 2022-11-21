@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnam <jnam@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 01:44:16 by mher              #+#    #+#             */
-/*   Updated: 2022/11/18 16:56:29 by jnam             ###   ########.fr       */
+/*   Updated: 2022/11/21 14:46:44 by jujeon           ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ void	parse_object(char *str)
 {
 	char	**line;
 	int		i;
-	
+
 	i = 0;
 	line = ft_split(str, '\n');
 	while (line[i])
 	{
 		if (line[i][0] == 'A')
-			check_object_A(line[i]);
+			check_object_ambient(line[i]);
 		else if (line[i][0] == 'C')
-			check_object_C(line[i]);
+			check_object_camera(line[i]);
 		else if (line[i][0] == 'L')
-			check_object_L(line[i]);
+			check_object_light(line[i]);
 		else if (line[i][0] == 's' && line[i][1] == 'p')
 			check_object_sp(line[i]);
 		else if (line[i][0] == 'p' && line[i][1] == 'l')
@@ -57,6 +57,8 @@ void	validate_rt(char *str)
 {
 	check_invalid_char(str, VALID_CHAR);
 	parse_object(str);
-	if (check_cnt_A() != 1 || check_cnt_C() != 1 || check_cnt_L() != 1)
+	if (check_cnt_ambient() != 1
+		|| check_cnt_camera() != 1
+		|| check_cnt_light() != 1)
 		exit_with_error("invalid object count\n");
 }

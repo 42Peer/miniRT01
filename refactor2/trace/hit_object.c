@@ -83,8 +83,8 @@ t_bool	hit_cylinder(t_object *cy_obj, t_ray *ray, t_hit_record *rec)
 	cp = vminus(rec->p, cy->point);
 	if (fabs(vdot(cp, cy->normal)) > cy->height / 2)
 		return (hit_circle(cy, ray, rec, TOP)
-				|| hit_circle(cy, ray, rec, BOTTOM));
-	rec->normal = vunit(vminus(cp , vmult_k(cy->normal, vdot(cp, cy->normal))));
+			|| hit_circle(cy, ray, rec, BOTTOM));
+	rec->normal = vunit(vminus(cp, vmult_k(cy->normal, vdot(cp, cy->normal))));
 	rec->color = cy->color;
 	set_face_normal(ray, rec);
 	return (TRUE);

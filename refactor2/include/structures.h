@@ -16,7 +16,8 @@ typedef struct s_plane		t_plane;
 typedef struct s_cylinder	t_cylinder;
 typedef struct s_ambient	t_ambient;
 
-typedef int t_bool;
+typedef int					t_bool;
+
 # define FALSE 0
 # define TRUE 1
 
@@ -26,7 +27,7 @@ typedef int t_bool;
 # define ESC				53
 # define X_EVENT_KEY_EXIT	17
 
-typedef enum e_object_type 
+typedef enum e_object_type
 {
 	SP,
 	PL,
@@ -40,7 +41,7 @@ typedef enum e_object_type
 
 # define MLX_WIDTH	800
 # define MLX_HEIGHT	600
-# define MLX_RATIO	((double) MLX_WIDTH / MLX_HEIGHT)
+# define MLX_RATIO	1.333334
 
 # define KS 0.5
 # define KSN 1024
@@ -51,19 +52,20 @@ typedef enum e_object_type
 
 struct s_vec3
 {
-	double x;
-	double y;
-	double z;
+	double	x;
+	double	y;
+	double	z;
 };
 
 struct s_ray
 {
-	t_point3 orig;
-	t_vec3 dir;
+	t_point3	orig;
+	t_vec3		dir;
 };
 
 struct s_camera
-{	t_point3	orig;
+{
+	t_point3	orig;
 	t_vec3		camera_dir;
 	double		focal_len;
 	double		viewport_h;
@@ -147,7 +149,7 @@ struct s_scene
 	t_camera		camera;
 	t_object		*object_list;
 	t_object		*light_list;
-	t_ambient 		ambient;
+	t_ambient		ambient;
 	t_ray			ray;
 	t_hit_record	rec;
 };
