@@ -55,3 +55,47 @@ t_bool	hit_cone(t_object *cone_obj, t_ray *ray, t_hit_record *rec)
 	set_face_normal(ray, rec);
 	return (TRUE);
 }
+
+t_color3	get_checker_color(t_plane *pl, t_hit_record *rec)
+{
+	const t_vec3	u = vunit(vcross(vec3(0, 1, EPSILON), rec->normal));
+	const t_vec3	v = vunit(vcross(rec->normal, u));
+	double			u_k;
+	double			v_k;
+
+	u_k = fmod(vdot(rec->p, u), CHECKER_SIZE * 2);
+	v_k = fmod(vdot(rec->p, v), CHECKER_SIZE * 2);
+	if (u_k < 0)
+		u_k += CHECKER_SIZE * 2;
+	if (v_k < 0)
+		v_k += CHECKER_SIZE * 2;
+	if (u_k < CHECKER_SIZE && v_k < CHECKER_SIZE)
+		return (pl->color);
+	else if (u_k >= CHECKER_SIZE && v_k >= CHECKER_SIZE)
+		return (pl->color);
+	else
+		return (color3(0, 0, 0));
+}
+
+t_bool	hit_checker(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
+{
+	t_plane	*pl;
+	double	denominator;
+	double	numerator;
+	double	root;
+
+	pl = pl_obj->element;
+	denominator = vdot(pl->normal, ray->dir);
+	if (fabs(denominator) < EPSILON)
+		return (FALSE);
+	numerator = vdot(vminus(pl->center, ray->orig), pl->normal);
+	root = numerator / denominator;
+	if (root < rec->tmin || rec->tmax < root)
+		return (FALSE);
+	rec->t = root;
+	rec->p = ray_at(ray, root);
+	rec->normal = pl->normal;
+	rec->color = get_checker_color(pl, rec);
+	set_face_normal(ray, rec);
+	return (TRUE);
+}

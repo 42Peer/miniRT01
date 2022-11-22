@@ -17,7 +17,7 @@ t_bool	hit_obj(t_object *object_list, t_ray *ray, t_hit_record *rec)
 	if (object_list->type == SP)
 		hit_result = hit_sphere(object_list, ray, rec);
 	else if (object_list->type == PL)
-		hit_result = hit_plane(object_list, ray, rec);
+		hit_result = hit_checker(object_list, ray, rec);
 	else if (object_list->type == CY)
 		hit_result = hit_cylinder(object_list, ray, rec);
 	else if (object_list->type == CO)
