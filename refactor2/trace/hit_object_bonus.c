@@ -79,13 +79,12 @@ t_color3	get_checker_color(t_plane *pl, t_hit_record *rec)
 
 t_color3	my_mlx_pixel_get(t_data *data, int x, int y)
 {
-	char		*dst;
-	const int	c = 0xFF;
+	unsigned char	*dst;
 
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	return (vec3(((*(unsigned int *)dst & (c << 16)) / 255.999), \
-				((*(unsigned int *)dst & (c << 8)) / 255.999), \
-				((*(unsigned int *)dst & c)/ 255.999)));
+	return (vec3(((dst[2]) / 255.999), \
+				((dst[1]) / 255.999), \
+				((dst[0])/ 255.999)));
 }
 
 t_vec3	mapping(t_data *data, t_hit_record *rec)
@@ -95,21 +94,45 @@ t_vec3	mapping(t_data *data, t_hit_record *rec)
 	double			u_k;
 	double			v_k;
 
-	//u_k = fmod(vdot(rec->p, u), 1); // 이거는 1로 나머지 때리면 제대로 안 나올 것 같아요
-	//v_k = fmod(vdot(rec->p, v), 1); // image->width랑 image->height와 관련된 걸로 바꿔야 안찌그려져서 나올 것 ㄱ타아요
-	u_k = vdot(rec->p, u) / data->img_w;
-	v_k = vdot(rec->p, v) / data->img_h;
+	//u_k = fmod(vdot(rec->p, u), data->img_w);
+	//v_k = fmod(vdot(rec->p, v), data->img_h);
+	//if (u_k < 0)
+	//	u_k += data->img_w;
+	//if (v_k < 0)
+	//	v_k += data->img_h;
+	//return (my_mlx_pixel_get(data , u_k, v_k));
+
+	u_k = fmod(vdot(rec->p, u), 1);
+	v_k = fmod(vdot(rec->p, v), 1);
 	if (u_k < 0)
-		u_k += data->img_w;
+		u_k += 1;
 	if (v_k < 0)
-		v_k += data->img_h;
-	//if ((u_k < CHECKER_SIZE && v_k < CHECKER_SIZE) ||
-	//	(u_k >= CHECKER_SIZE && v_k >= CHECKER_SIZE))
-	//{
-		return (my_mlx_pixel_get(data , u_k, v_k));
-	//}
-	//else
-	//	return (color3(0, 0, 0));
+		v_k += 1;
+	return (my_mlx_pixel_get(data , data->img_w * u_k, data->img_h * v_k));
+}
+
+t_vec3	bump_mapping(t_vec3 n, t_hit_record *rec)
+{
+	const t_vec3	u = vunit(vcross(vec3(0, 1, EPSILON), rec->normal));
+	const t_vec3	v = vunit(vcross(rec->normal, u));
+	double			u_k;
+	double			v_k;
+
+	//u_k = fmod(vdot(rec->p, u), data->img_w);
+	//v_k = fmod(vdot(rec->p, v), data->img_h);
+	//if (u_k < 0)
+	//	u_k += data->img_w;
+	//if (v_k < 0)
+	//	v_k += data->img_h;
+	//return (my_mlx_pixel_get(data , u_k, v_k));
+
+	u_k = fmod(vdot(rec->p, u), 1);
+	v_k = fmod(vdot(rec->p, v), 1);
+	if (u_k < 0)
+		u_k += 1;
+	if (v_k < 0)
+		v_k += 1;
+	return (vec3(vdot(vec3(u.x, v.x, rec->normal.x), n), vdot(vec3(u.y, v.y, rec->normal.y), n), vdot(vec3(u.z, v.z, rec->normal.z), n)));
 }
 
 t_bool	hit_checker(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
@@ -131,7 +154,8 @@ t_bool	hit_checker(t_object *pl_obj, t_ray *ray, t_hit_record *rec)
 	rec->p = ray_at(ray, root);
 	rec->normal = pl->normal;
 	//rec->color = get_checker_color(pl, rec);
-	//rec->normal = mapping(&pl->bump, rec);
+	//t_vec3	n = vunit(vminus(vmult_k(mapping(&pl->bump, rec), 2), vec3(1,1,1)));
+	//rec->normal = vunit(bump_mapping(n, rec));
 	rec->color = mapping(&pl->texture, rec);
 	set_face_normal(ray, rec);
 	return (TRUE);

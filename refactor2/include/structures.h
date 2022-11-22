@@ -92,7 +92,7 @@ struct s_data
 	char	*img;
 	int		img_w;
 	int		img_h;
-	char	*addr;
+	unsigned char	*addr;
 	int		line_length;
 	int		bits_per_pixel;
 	int		endian;
@@ -104,7 +104,7 @@ struct s_plane
 	t_vec3		normal;
 	t_color3	color;
 	t_data		texture;
-	//t_data		bump;
+	t_data		bump;
 };
 
 struct s_cylinder
