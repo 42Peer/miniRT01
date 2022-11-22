@@ -54,16 +54,14 @@ void	check_file_extension(char *filename)
 		exit_with_error("Invalid file extension\n");
 }
 
-t_scene	parse(char *filename)
+void	parse(t_scene *scene, char *filename)
 {
-	t_scene	scene;
 	char	**line;
 
-	scene.light_list = 0;
-	scene.object_list = 0;
+	scene->light_list = 0;
+	scene->object_list = 0;
 	check_file_extension(filename);
 	line = file_parser(filename);
-	object_parser(line, &scene);
+	object_parser(line, scene);
 	free_split(line);
-	return (scene);
 }

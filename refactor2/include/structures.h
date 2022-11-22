@@ -8,6 +8,7 @@ typedef struct s_ray		t_ray;
 typedef struct s_camera		t_camera;
 typedef struct s_sphere		t_sphere;
 typedef struct s_mlx		t_mlx;
+typedef struct s_data		t_data;
 typedef struct s_hit_record	t_hit_record;
 typedef struct s_object		t_object;
 typedef struct s_light		t_light;
@@ -86,11 +87,24 @@ struct s_sphere
 	t_color3	color;
 };
 
+struct s_data
+{
+	char	*img;
+	int		img_w;
+	int		img_h;
+	char	*addr;
+	int		line_length;
+	int		bits_per_pixel;
+	int		endian;
+};
+
 struct s_plane
 {
 	t_point3	center;
 	t_vec3		normal;
 	t_color3	color;
+	t_data		texture;
+	//t_data		bump;
 };
 
 struct s_cylinder

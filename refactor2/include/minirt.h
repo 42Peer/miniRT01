@@ -50,7 +50,7 @@ double		maxf(double a, double b);
 /*
 *				parser
 */
-t_scene		parse(char *filename);
+void		parse(t_scene *scene, char *filename);
 char		**file_parser(char *filename);
 void		object_parser(char **line, t_scene *scene);
 
