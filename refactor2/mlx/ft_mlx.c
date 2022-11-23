@@ -12,6 +12,7 @@ int	mlx_esc_exit(int keycode, t_mlx *mlx)
 
 int	mlx_exit(t_mlx *mlx)
 {
+	system("leaks ./bonus");
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	exit(EXIT_SUCCESS);
 	return (0);
