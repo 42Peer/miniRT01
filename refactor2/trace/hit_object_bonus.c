@@ -87,31 +87,20 @@ t_color3	my_mlx_pixel_get(t_xpm *data, int x, int y)
 				((dst[0])/ 255.999)));
 }
 
-// Convert Cartesian coordinate system to spherical coordinate system
 t_vec3	get_sphere_texture_color(t_sphere *sp, t_vec3 p)
 {
-	// double	phi = atan((p.y - sp->center.y) / (p.x - sp->center.x)); // 0~2pi or (-pi ~ pi)
-	// double	theta = acos((p.z - sp->center.z) / sp->radius); // 0 ~ pi
+	t_vec3		normal;
+	double		phi;
+	double		theta;
+	double		u;
+	double		v;
 
-// double	phi = atan((p.z - sp->center.z) / (p.y - sp->center.y)); // 0~2pi or (-pi ~ pi)
-// double	theta = acos((p.x - sp->center.x) / sp->radius); // 0 ~ pi
-
-	double	theta = atan((p.x - sp->center.x) / (p.y - sp->center.y)); // 0~pi
-	double	phi = acos((p.z - sp->center.z) / sp->radius); // (0 ~ 2pi) or (-pi ~ pi)
-	
-	// if (phi > 2* M_PI || theta > M_PI)
-	// 	printf("phi : %lf theta : %lf\n", phi, theta);
-	// double	phi_k = fmod(, M_PI);
-	// double	theta_k = fmod();
-	//const double	u = 1 - (phi + M_PI) / (2 * M_PI);
-	//const double	v = (theta + M_PI / 2) / M_PI;
-	//const double	u = phi / (2 * M_PI);
-
-	const double	u = theta / M_PI;
- 	const double	v = (phi + M_PI) / (2 * M_PI);
-	printf("u : %lf v : %lf\n", u, v);
-	//const double	v = (theta + M_PI / 2) / M_PI;
-	return (my_mlx_pixel_get(&sp->texture, u * (sp->texture.img_w), v * (sp->texture.img_h)));
+	normal = vunit(vminus(p, sp->center));
+	phi = atan2(normal.z, normal.x);
+	theta = asin(normal.y);
+	u = 1 - (phi + M_PI) / (2 * M_PI);
+	v = (theta + M_PI / 2) / M_PI;
+	return (my_mlx_pixel_get(&sp->texture, u * (sp->texture.img_w), sp->texture.img_h - v * (sp->texture.img_h)));
 }
 
 t_bool	hit_sphere_bump(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
