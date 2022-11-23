@@ -52,7 +52,7 @@ typedef enum e_object_type
 # define DOUBLE_CHAR "0123456789."
 # define COLOR_CHAR "0123456789,,"
 
-# define CHECKER_SIZE 0.5
+# define CHECKER_SIZE 6
 
 struct s_vec3
 {

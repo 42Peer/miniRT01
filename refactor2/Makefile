@@ -6,7 +6,7 @@
 #    By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/23 12:46:18 by jujeon           ###   ########seoul.kr   #
+#    Updated: 2022/11/23 15:50:58 by jujeon           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ BNS = \
 	validator/validator_bonus.c \
 	trace/hit_bonus.c \
 	trace/hit_object_bonus.c \
+	trace/hit_object_bump_bonus.c \
 	trace/phong_lighting_bonus.c \
 
 SRC = \
