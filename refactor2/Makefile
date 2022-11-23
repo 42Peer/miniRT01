@@ -6,7 +6,7 @@
 #    By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/21 20:29:21 by jujeon           ###   ########seoul.kr   #
+#    Updated: 2022/11/23 12:46:18 by jujeon           ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,6 @@ BASE :=  main.c \
 		object/cylinder.c \
 		object/object.c \
 		object/plane.c \
-		object/sphere.c \
 		wrap/wrap_open.c \
 		wrap/wrap_malloc.c \
 		trace/hit_object.c \
@@ -53,6 +52,7 @@ BNS = \
 	parser/parser_bonus.c \
 	object/light_bonus.c \
 	object/cone_bonus.c \
+	object/sphere_bonus.c \
 	validator/valid_object_bonus.c \
 	validator/valid_object_must_bonus.c \
 	validator/validator_bonus.c \
@@ -64,6 +64,7 @@ SRC = \
 	$(BASE) \
 	parser/parser.c \
 	object/light.c \
+	object/sphere.c \
 	validator/valid_object_must.c \
 	validator/validator.c \
 	trace/hit.c \

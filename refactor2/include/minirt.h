@@ -85,6 +85,7 @@ t_bool		hit_circle( \
 			const t_cylinder *cy, t_ray *ray, t_hit_record *rec, int position);
 t_bool		hit_cone(t_object *cone_obj, t_ray *ray, t_hit_record *rec);
 t_bool		hit_checker(t_object *pl_obj, t_ray *ray, t_hit_record *rec);
+t_bool		hit_sphere_bump(t_object *sp_obj, t_ray *ray, t_hit_record *rec);
 t_color3	phong_lighting(t_scene *scene);
 t_bool		in_shadow(t_scene *scene, t_vec3 light_vec);
 t_color3	get_diffuse(t_scene *scene, t_light *light, t_vec3 light_dir);
