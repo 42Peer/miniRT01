@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vdivide_k.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/24 15:37:45 by jujeon            #+#    #+#             */
+/*   Updated: 2022/11/24 15:38:54 by jujeon           ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vector.h"
 
 t_vec3	vdivide_k(t_vec3 vec, double t)
@@ -5,5 +17,5 @@ t_vec3	vdivide_k(t_vec3 vec, double t)
 	vec.x *= 1 / t;
 	vec.y *= 1 / t;
 	vec.z *= 1 / t;
-	return vec;
+	return (vec);
 }
