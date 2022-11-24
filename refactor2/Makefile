@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jujeon <jujeon@student.42seoul.kr>         +#+  +:+       +#+         #
+#    By: jnam <jnam@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/26 18:07:13 by mher              #+#    #+#              #
-#    Updated: 2022/11/23 15:50:58 by jujeon           ###   ########seoul.kr   #
+#    Updated: 2022/11/24 15:12:37 by jnam             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME 	= miniRT
 
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g3 #-fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror
 MFLAGS	= -framework OpenGL -framework AppKit
 
 MLX_DIR	= ./lib/libmlx
